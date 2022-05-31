@@ -37,6 +37,16 @@ class NseReaderImpl extends NseReader {
     }
 
     @Override
+    public boolean isValidStockCode(String stockCode) {
+        try {
+            var stocksMap = this.getAllStocks();
+            return stocksMap.containsKey(stockCode.toUpperCase());
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    @Override
     public List<String> getAllIndices() throws NseDataParsingException, NseTimeoutException, NseResponseFailureException, IOException {
         if (this.indexList != null) {
             return this.indexList;

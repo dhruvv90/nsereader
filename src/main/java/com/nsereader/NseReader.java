@@ -22,6 +22,8 @@ public abstract class NseReader {
 
     public abstract Map<String, String> getAllStocks() throws NseDataParsingException, NseResponseFailureException, NseTimeoutException, IOException;
 
+    public abstract boolean isValidStockCode(String stockCode);
+
     public abstract List<String> getAllIndices() throws NseDataParsingException, NseResponseFailureException, NseTimeoutException, IOException;
 
     public interface Builder {

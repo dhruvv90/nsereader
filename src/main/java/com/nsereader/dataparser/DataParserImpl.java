@@ -30,7 +30,7 @@ class DataParserImpl implements IDataParser {
             if (fragments[0].equalsIgnoreCase("symbol")) {
                 continue;
             }
-            result.put(fragments[0], fragments[1]);
+            result.put(fragments[0].toUpperCase(), fragments[1]);
         }
         return result;
     }
@@ -51,7 +51,7 @@ class DataParserImpl implements IDataParser {
                     if (JsonToken.FIELD_NAME.equals(parser.getCurrentToken())
                             && parser.getCurrentName().equals("name")) {
                         parser.nextToken();
-                        result.add(parser.getValueAsString());
+                        result.add(parser.getValueAsString().toUpperCase());
                     }
                 }
                 break;
