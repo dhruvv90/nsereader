@@ -9,8 +9,8 @@ public class Main {
 
         NseReader nseReaderDefault = NseReader.createDefault();
 
-//        var stocks = nseReaderDefault.getAllStocks();
-//        System.out.println(stocks);
+        var stocks = nseReaderDefault.getAllStocks();
+        System.out.println(stocks);
 
         var indices = nseReaderDefault.getAllIndices();
         System.out.println(indices);

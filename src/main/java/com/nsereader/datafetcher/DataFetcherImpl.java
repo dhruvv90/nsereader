@@ -14,12 +14,14 @@ import java.util.Objects;
 
 class DataFetcherImpl implements IDataFetcher {
 
-    protected static final int HTTP_CODE_OK = 200;
-
+    private static final int HTTP_CODE_OK = 200;
+    private final Duration DEFAULT_DURATION = Duration.ofSeconds(10);
     private final OkHttpClient httpClient;
 
     DataFetcherImpl(Duration duration) {
-        Objects.requireNonNull(duration);
+        if (duration == null) {
+            duration = DEFAULT_DURATION;
+        }
         this.httpClient = new OkHttpClient.Builder()
                 .callTimeout(Duration.ofSeconds(10))
                 .readTimeout(duration)
@@ -29,7 +31,7 @@ class DataFetcherImpl implements IDataFetcher {
     @Override
     public InputStream getAllStocks() throws NseTimeoutException, NseResponseFailureException {
         Request req = new Request.Builder()
-                .url(ALL_STOCKS)
+                .url(UrlRepository.ALL_STOCKS)
                 .build();
 
         InputStream responseStream;
@@ -51,7 +53,7 @@ class DataFetcherImpl implements IDataFetcher {
     @Override
     public InputStream getAllIndices() throws NseTimeoutException, NseResponseFailureException {
         Request req = new Request.Builder()
-                .url(ALL_INDICES)
+                .url(UrlRepository.ALL_INDICES)
                 .addHeader("Accept", "*/*")
                 .addHeader("User-Agent", "linux")
                 .build();
