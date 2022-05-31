@@ -15,5 +15,7 @@ public class Main {
         var indices = nseReaderDefault.getAllIndices();
         System.out.println(indices);
 
+        System.out.println(nseReaderDefault.getAllStocks());
+
     }
 }
