@@ -19,7 +19,8 @@ public interface IDataFetcher {
 }
 
 class UrlRepository {
-    static final String ALL_STOCKS = "http://www1.nseindia.com/content/equities/EQUITY_L.csv";
-    static final String ALL_INDICES = "http://www1.nseindia.com/homepage/Indices1.json";
+    static final String ROOT_URL = "http://www1.nseindia.com";
+    static final String ALL_STOCKS = ROOT_URL + "/content/equities/EQUITY_L.csv";
+    static final String ALL_INDICES = ROOT_URL + "/homepage/Indices1.json";
 }
 
