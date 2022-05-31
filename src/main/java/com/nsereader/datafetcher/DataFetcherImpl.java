@@ -9,7 +9,6 @@ import okhttp3.Response;
 
 import java.io.InputStream;
 import java.time.Duration;
-import java.util.Objects;
 
 
 class DataFetcherImpl implements IDataFetcher {
@@ -54,6 +53,30 @@ class DataFetcherImpl implements IDataFetcher {
     public InputStream getAllIndices() throws NseTimeoutException, NseResponseFailureException {
         Request req = new Request.Builder()
                 .url(UrlRepository.ALL_INDICES)
+                .addHeader("Accept", "*/*")
+                .addHeader("User-Agent", "linux")
+                .build();
+
+        InputStream responseStream;
+        Call call = httpClient.newCall(req);
+        try {
+            Response res = call.execute();
+            if (res.code() != HTTP_CODE_OK || res.body() == null) {
+                throw new NseResponseFailureException();
+            }
+            responseStream = res.body().byteStream();
+        } catch (NseResponseFailureException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new NseTimeoutException();
+        }
+        return responseStream;
+    }
+
+    @Override
+    public InputStream getTopGainerStocks() throws NseResponseFailureException, NseTimeoutException {
+        Request req = new Request.Builder()
+                .url(UrlRepository.TOP_GAINER_STOCKS)
                 .addHeader("Accept", "*/*")
                 .addHeader("User-Agent", "linux")
                 .build();

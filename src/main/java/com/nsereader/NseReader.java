@@ -1,11 +1,10 @@
 package com.nsereader;
 
-import com.nsereader.exception.NseTimeoutException;
 import com.nsereader.exception.NseDataParsingException;
 import com.nsereader.exception.NseResponseFailureException;
+import com.nsereader.exception.NseTimeoutException;
 
 import java.io.IOException;
-import java.net.http.HttpClient;
 import java.time.Duration;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +26,8 @@ public abstract class NseReader {
     public abstract List<String> getAllIndices() throws NseDataParsingException, NseResponseFailureException, NseTimeoutException, IOException;
 
     public abstract boolean isValidIndex(String index);
+
+    public abstract List<String> getTopGainerStocks() throws NseDataParsingException, NseResponseFailureException, NseTimeoutException, IOException;
 
     public interface Builder {
         Builder setRequestTimeout(Duration duration);

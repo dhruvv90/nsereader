@@ -24,5 +24,8 @@ public class Main {
 
         var checkIndex = def.isValidIndex("Nifty 50");
         print(checkIndex);
+
+        var topGainers = def.getTopGainerStocks();
+        print(topGainers);
     }
 }

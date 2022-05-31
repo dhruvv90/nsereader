@@ -8,8 +8,6 @@ import com.nsereader.exception.NseTimeoutException;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -71,5 +69,14 @@ class NseReaderImpl extends NseReader {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    @Override
+    public List<String> getTopGainerStocks() throws NseDataParsingException, NseResponseFailureException, NseTimeoutException, IOException {
+        List<String> result;
+        try(InputStream stream = this.dataFetcher.getTopGainerStocks()){
+            result = this.dataParser.parseTopStockGainers(stream);
+        }
+        return result;
     }
 }

@@ -60,4 +60,30 @@ class DataParserImpl implements IDataParser {
         }
         return result;
     }
+
+    @Override
+    public List<String> parseTopStockGainers(InputStream data) throws NseDataParsingException, IOException {
+        List<String> result = new ArrayList<>();
+
+        JsonFactory jsonFactory = new JsonFactory();
+        try (JsonParser parser = jsonFactory.createParser(data)) {
+            while (!parser.isClosed()) {
+                JsonToken token = parser.nextToken();
+                if (JsonToken.FIELD_NAME.equals(token) && parser.getCurrentName().equals("data")) {
+                    if (parser.nextToken() != JsonToken.START_ARRAY) {
+                        throw new NseDataParsingException();
+                    }
+                    while (parser.nextToken() != JsonToken.END_ARRAY) {
+                        if (JsonToken.FIELD_NAME.equals(parser.getCurrentToken())
+                                && parser.getCurrentName().equals("symbol")) {
+                            parser.nextToken();
+                            result.add(parser.getValueAsString().toUpperCase());
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+        return result;
+    }
 }
