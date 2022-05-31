@@ -20,5 +20,7 @@ public interface IDataParser {
     List<String> parseAllIndices(InputStream data) throws NseDataParsingException, IOException;
 
     List<String> parseTopStockGainers(InputStream data) throws NseDataParsingException, IOException;
+
+    List<String> parseTopLoserStocks(InputStream stream) throws  NseDataParsingException, IOException;
 }
 

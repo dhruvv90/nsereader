@@ -29,6 +29,8 @@ public abstract class NseReader {
 
     public abstract List<String> getTopGainerStocks() throws NseDataParsingException, NseResponseFailureException, NseTimeoutException, IOException;
 
+    public abstract List<String> getTopLoserStocks() throws NseDataParsingException, NseResponseFailureException, NseTimeoutException, IOException;
+
     public interface Builder {
         Builder setRequestTimeout(Duration duration);
 

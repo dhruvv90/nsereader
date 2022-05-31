@@ -73,10 +73,9 @@ class DataFetcherImpl implements IDataFetcher {
         return responseStream;
     }
 
-    @Override
-    public InputStream getTopGainerStocks() throws NseResponseFailureException, NseTimeoutException {
+    private InputStream getTop(String url) throws NseResponseFailureException, NseTimeoutException {
         Request req = new Request.Builder()
-                .url(UrlRepository.TOP_GAINER_STOCKS)
+                .url(url)
                 .addHeader("Accept", "*/*")
                 .addHeader("User-Agent", "linux")
                 .build();
@@ -95,5 +94,15 @@ class DataFetcherImpl implements IDataFetcher {
             throw new NseTimeoutException();
         }
         return responseStream;
+    }
+
+    @Override
+    public InputStream getTopGainerStocks() throws NseResponseFailureException, NseTimeoutException {
+        return this.getTop(UrlRepository.TOP_GAINER_STOCKS);
+    }
+
+    @Override
+    public InputStream getTopLoserStocks() throws NseResponseFailureException, NseTimeoutException {
+        return this.getTop(UrlRepository.TOP_LOSER_STOCKS);
     }
 }

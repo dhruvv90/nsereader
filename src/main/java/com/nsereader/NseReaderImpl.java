@@ -79,4 +79,13 @@ class NseReaderImpl extends NseReader {
         }
         return result;
     }
+
+    @Override
+    public List<String> getTopLoserStocks() throws NseDataParsingException, NseResponseFailureException, NseTimeoutException, IOException {
+        List<String> result;
+        try(InputStream stream = this.dataFetcher.getTopLoserStocks()){
+            result = this.dataParser.parseTopLoserStocks(stream);
+        }
+        return result;
+    }
 }

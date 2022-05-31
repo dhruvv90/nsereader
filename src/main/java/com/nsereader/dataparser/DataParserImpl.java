@@ -61,8 +61,7 @@ class DataParserImpl implements IDataParser {
         return result;
     }
 
-    @Override
-    public List<String> parseTopStockGainers(InputStream data) throws NseDataParsingException, IOException {
+    private List<String> parseTop(InputStream data) throws NseDataParsingException, IOException {
         List<String> result = new ArrayList<>();
 
         JsonFactory jsonFactory = new JsonFactory();
@@ -85,5 +84,15 @@ class DataParserImpl implements IDataParser {
             }
         }
         return result;
+    }
+
+    @Override
+    public List<String> parseTopStockGainers(InputStream data) throws NseDataParsingException, IOException {
+        return this.parseTop(data);
+    }
+
+    @Override
+    public List<String> parseTopLoserStocks(InputStream data) throws NseDataParsingException, IOException {
+        return this.parseTop(data);
     }
 }

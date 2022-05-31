@@ -18,6 +18,8 @@ public interface IDataFetcher {
     InputStream getAllIndices() throws NseResponseFailureException, NseTimeoutException;
 
     InputStream getTopGainerStocks() throws NseResponseFailureException, NseTimeoutException;
+
+    InputStream getTopLoserStocks() throws NseResponseFailureException, NseTimeoutException;
 }
 
 class UrlRepository {
@@ -26,5 +28,6 @@ class UrlRepository {
     static final String ALL_INDICES = ROOT_URL + "/homepage/Indices1.json";
 
     static final String TOP_GAINER_STOCKS = ROOT_URL + "/live_market/dynaContent/live_analysis/gainers/niftyGainers1.json";
+    static final String TOP_LOSER_STOCKS = ROOT_URL + "/live_market/dynaContent/live_analysis/losers/niftyLosers1.json";
 }
 

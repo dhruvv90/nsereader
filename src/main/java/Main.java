@@ -27,5 +27,8 @@ public class Main {
 
         var topGainers = def.getTopGainerStocks();
         print(topGainers);
+
+        var topLosers = def.getTopLoserStocks();
+        print(topLosers);
     }
 }
