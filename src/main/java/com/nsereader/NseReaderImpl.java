@@ -8,6 +8,8 @@ import com.nsereader.exception.NseTimeoutException;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -28,12 +30,13 @@ class NseReaderImpl extends NseReader {
         if (this.stockData != null) {
             return this.stockData;
         }
-        InputStream stockDataStream = this.dataFetcher.getAllStocks();
-        var result = this.dataParser.parseAllStocks(stockDataStream);
-        stockDataStream.close();
 
+        Map<String, String> result;
+        try(InputStream stockDataStream = this.dataFetcher.getAllStocks()){
+            result = this.dataParser.parseAllStocks(stockDataStream);
+        }
         this.stockData = result;
-        return this.stockData;
+        return result;
     }
 
     @Override
@@ -51,12 +54,13 @@ class NseReaderImpl extends NseReader {
         if (this.indexList != null) {
             return this.indexList;
         }
-        var indicesDataStream = this.dataFetcher.getAllIndices();
-        var result = this.dataParser.parseAllIndices(indicesDataStream);
-        indicesDataStream.close();
 
+        List<String> result;
+        try(InputStream indicesDataStream = this.dataFetcher.getAllIndices()){
+            result = this.dataParser.parseAllIndices(indicesDataStream);
+        }
         this.indexList = result;
-        return this.indexList;
+        return result;
     }
 
     @Override
