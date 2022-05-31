@@ -26,6 +26,8 @@ public abstract class NseReader {
 
     public abstract List<String> getAllIndices() throws NseDataParsingException, NseResponseFailureException, NseTimeoutException, IOException;
 
+    public abstract boolean isValidIndex(String index);
+
     public interface Builder {
         Builder setRequestTimeout(Duration duration);
 

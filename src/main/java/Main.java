@@ -5,15 +5,24 @@ import com.nsereader.NseReader;
 
 public class Main {
 
+    public static void print(Object o){
+        System.out.println(o);
+    }
+
     public static void main(String[] args) throws Exception {
 
-        NseReader nseReaderDefault = NseReader.createDefault();
+        NseReader def = NseReader.createDefault();
 
-        var stocks = nseReaderDefault.getAllStocks();
-        System.out.println(stocks);
+        var stocks = def.getAllStocks();
+        print(stocks);
 
-        var indices = nseReaderDefault.getAllIndices();
-        System.out.println(indices);
+        var indices = def.getAllIndices();
+        print(indices);
 
+        var checkStock = def.isValidStockCode("hdfc");
+        print(checkStock);
+
+        var checkIndex = def.isValidIndex("Nifty 50");
+        print(checkIndex);
     }
 }

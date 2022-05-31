@@ -58,4 +58,14 @@ class NseReaderImpl extends NseReader {
         this.indexList = result;
         return this.indexList;
     }
+
+    @Override
+    public boolean isValidIndex(String index) {
+        try {
+            var indicesMap = this.getAllIndices();
+            return indicesMap.contains(index.toUpperCase());
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }
