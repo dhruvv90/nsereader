@@ -17,7 +17,7 @@ import java.util.Map;
 class DataParserImpl implements IDataParser {
 
     @Override
-    public Map<String, String> parseAllStocks(InputStream data) throws IOException {
+    public Map<String, String> parseAllStocks(InputStream data) throws IOException, NseDataParsingException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(data));
         Map<String, String> result = new HashMap<>();
 
@@ -31,6 +31,9 @@ class DataParserImpl implements IDataParser {
                 continue;
             }
             result.put(fragments[0].toUpperCase(), fragments[1]);
+        }
+        if(result.isEmpty()){
+            throw new NseDataParsingException();
         }
         return result;
     }
@@ -58,6 +61,9 @@ class DataParserImpl implements IDataParser {
                 }
             }
         }
+        if(result.isEmpty()){
+            throw new NseDataParsingException();
+        }
         return result;
     }
 
@@ -82,6 +88,9 @@ class DataParserImpl implements IDataParser {
                     break;
                 }
             }
+        }
+        if(result.isEmpty()){
+            throw new NseDataParsingException();
         }
         return result;
     }

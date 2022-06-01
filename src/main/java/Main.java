@@ -18,6 +18,7 @@ public class Main {
 
         var indices = def.getAllIndices();
         print(indices);
+        indices.add("a");
 
         var checkStock = def.isValidStockCode("hdfc");
         print(checkStock);
