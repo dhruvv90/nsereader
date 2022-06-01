@@ -1,13 +1,6 @@
 package com.nsereader;
 
-import com.nsereader.exception.NseDataParsingException;
-import com.nsereader.exception.NseResponseFailureException;
-import com.nsereader.exception.NseTimeoutException;
-
-import java.io.IOException;
 import java.time.Duration;
-import java.util.List;
-import java.util.Map;
 
 
 public abstract class NseReader {
@@ -18,18 +11,6 @@ public abstract class NseReader {
     public static Builder getBuilder() {
         return new NseReaderBuilderImpl();
     }
-
-    public abstract Map<String, String> getAllStocks() throws NseDataParsingException, NseResponseFailureException, NseTimeoutException, IOException;
-
-    public abstract boolean isValidStockCode(String stockCode);
-
-    public abstract List<String> getAllIndices() throws NseDataParsingException, NseResponseFailureException, NseTimeoutException, IOException;
-
-    public abstract boolean isValidIndex(String index);
-
-    public abstract List<String> getTopGainerStocks() throws NseDataParsingException, NseResponseFailureException, NseTimeoutException, IOException;
-
-    public abstract List<String> getTopLoserStocks() throws NseDataParsingException, NseResponseFailureException, NseTimeoutException, IOException;
 
     public interface Builder {
         Builder setRequestTimeout(Duration duration);
