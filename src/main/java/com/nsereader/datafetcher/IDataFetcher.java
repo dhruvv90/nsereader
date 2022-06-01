@@ -10,7 +10,7 @@ import java.time.Duration;
 public interface IDataFetcher {
 
     static IDataFetcher createDefault(Duration duration) {
-        return new DataFetcherImpl(duration);
+        return null;
     }
 
     InputStream getAllStocks() throws NseResponseFailureException, NseTimeoutException;
