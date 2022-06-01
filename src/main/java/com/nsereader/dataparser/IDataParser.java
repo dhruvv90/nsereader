@@ -12,7 +12,7 @@ public interface IDataParser {
     String CSV_DELIMITER = ",";
 
     static IDataParser createDefault() {
-        return new DataParserImpl();
+        return null;
     }
 
     Map<String, String> parseAllStocks(InputStream data) throws NseDataParsingException, IOException;
