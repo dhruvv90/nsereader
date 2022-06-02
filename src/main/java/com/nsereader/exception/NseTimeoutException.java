@@ -4,11 +4,11 @@ public class NseTimeoutException extends Exception {
 
     private static final String DEFAULT_MESSAGE = "Request timeout from NSE";
 
-    NseTimeoutException(Throwable cause) {
+    public NseTimeoutException(Throwable cause) {
         super(DEFAULT_MESSAGE, cause);
     }
 
-    NseTimeoutException() {
+    public NseTimeoutException() {
         super(DEFAULT_MESSAGE);
     }
 }
