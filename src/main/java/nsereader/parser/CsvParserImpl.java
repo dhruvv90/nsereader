@@ -19,11 +19,12 @@ class CsvParserImpl implements ICsvParser {
 
     static ICsvParser getInstance() {
         if (instance == null) {
-            return new CsvParserImpl();
+            instance = new CsvParserImpl();
         }
         return instance;
     }
 
+    @SuppressWarnings("UnusedAssignment")
     @Override
     public List<Stock> parseAllStocksCsv(InputStream iStream) throws NseDataParsingException {
         try {

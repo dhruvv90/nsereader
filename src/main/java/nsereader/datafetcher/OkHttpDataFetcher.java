@@ -26,7 +26,7 @@ class OkHttpDataFetcher implements IDataFetcher {
 
     static OkHttpDataFetcher getInstance() {
         if (instance == null) {
-            return new OkHttpDataFetcher();
+            instance = new OkHttpDataFetcher();
         }
         return instance;
     }
@@ -39,7 +39,8 @@ class OkHttpDataFetcher implements IDataFetcher {
                 throw new NseResponseFailureException();
             }
             InputStream iStream = res.body().byteStream();
-            List<Stock> stockList = this.csvParser.parseAllStocksCsv(iStream);
+            List<Stock> stockList;
+            stockList = this.csvParser.parseAllStocksCsv(iStream);
             return stockList;
         } catch (IOException e) {
             throw new NseTimeoutException(e);
