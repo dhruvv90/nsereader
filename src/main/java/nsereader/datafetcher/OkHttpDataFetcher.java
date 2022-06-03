@@ -1,6 +1,5 @@
-package nsereader.internal;
+package nsereader.datafetcher;
 
-import nsereader.datafetcher.IDataFetcher;
 import nsereader.exception.NseDataParsingException;
 import nsereader.exception.NseResponseFailureException;
 import nsereader.exception.NseTimeoutException;
@@ -10,10 +9,10 @@ import okhttp3.OkHttpClient;
 import java.util.List;
 
 
-public class OkHttpDataFetcher implements IDataFetcher {
+class OkHttpDataFetcher implements IDataFetcher {
     private final OkHttpClient httpClient;
 
-    public OkHttpDataFetcher() {
+    OkHttpDataFetcher() {
         this.httpClient = new OkHttpClient.Builder().build();
     }
 

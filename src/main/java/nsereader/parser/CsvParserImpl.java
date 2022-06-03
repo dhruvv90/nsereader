@@ -1,8 +1,7 @@
-package nsereader.internal;
+package nsereader.parser;
 
 import nsereader.exception.NseDataParsingException;
 import nsereader.model.Stock;
-import nsereader.parser.ICsvParser;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,7 +10,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CsvParserImpl implements ICsvParser {
+class CsvParserImpl implements ICsvParser {
 
     private final static String CSV_DELIMITER = ",";
 

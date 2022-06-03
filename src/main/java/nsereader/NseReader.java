@@ -1,7 +1,5 @@
 package nsereader;
 
-import nsereader.internal.NseReaderBuilderImpl;
-
 public abstract class NseReader {
     public static NseReader createDefault() {
         return getBuilder().build();

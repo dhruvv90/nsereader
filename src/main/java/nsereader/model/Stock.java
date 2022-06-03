@@ -25,7 +25,7 @@ public class Stock {
         return nameOfCompany;
     }
 
-    void setNameOfCompany(String nameOfCompany) {
+    public void setNameOfCompany(String nameOfCompany) {
         this.nameOfCompany = nameOfCompany;
     }
 
@@ -33,7 +33,7 @@ public class Stock {
         return series;
     }
 
-    void setSeries(String series) {
+    public void setSeries(String series) {
         this.series = series;
     }
 
@@ -41,7 +41,7 @@ public class Stock {
         return dateOfListing;
     }
 
-    void setDateOfListing(Date dateOfListing) {
+    public void setDateOfListing(Date dateOfListing) {
         this.dateOfListing = dateOfListing;
     }
 
@@ -49,7 +49,7 @@ public class Stock {
         return paidUpValue;
     }
 
-    void setPaidUpValue(double paidUpValue) {
+    public void setPaidUpValue(double paidUpValue) {
         this.paidUpValue = paidUpValue;
     }
 
@@ -57,7 +57,7 @@ public class Stock {
         return marketLot;
     }
 
-    void setMarketLot(short marketLot) {
+    public void setMarketLot(short marketLot) {
         this.marketLot = marketLot;
     }
 
@@ -65,7 +65,7 @@ public class Stock {
         return isinNumber;
     }
 
-    void setIsinNumber(String isinNumber) {
+    public void setIsinNumber(String isinNumber) {
         this.isinNumber = isinNumber;
     }
 
@@ -73,7 +73,7 @@ public class Stock {
         return faceValue;
     }
 
-    void setFaceValue(short faceValue) {
+    public void setFaceValue(short faceValue) {
         this.faceValue = faceValue;
     }
 

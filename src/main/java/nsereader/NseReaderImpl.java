@@ -1,6 +1,4 @@
-package nsereader.internal;
-
-import nsereader.NseReader;
+package nsereader;
 
 class NseReaderImpl extends NseReader {
 

@@ -11,4 +11,12 @@ public class NseTimeoutException extends Exception {
     public NseTimeoutException() {
         super(DEFAULT_MESSAGE);
     }
+
+    public NseTimeoutException(String message) {
+        super(String.join(". ", DEFAULT_MESSAGE, message));
+    }
+
+    public NseTimeoutException(String message, Throwable cause) {
+        super(String.join(". ", DEFAULT_MESSAGE, message), cause);
+    }
 }

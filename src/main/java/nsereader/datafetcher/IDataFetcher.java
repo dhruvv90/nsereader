@@ -1,6 +1,5 @@
 package nsereader.datafetcher;
 
-
 import nsereader.exception.NseDataParsingException;
 import nsereader.exception.NseResponseFailureException;
 import nsereader.exception.NseTimeoutException;
