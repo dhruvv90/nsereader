@@ -9,6 +9,10 @@ import java.util.List;
 
 public interface IDataFetcher {
 
+    static IDataFetcher getCurrentInstance() {
+        return OkHttpDataFetcher.getInstance();
+    }
+
     List<Stock> getStocks() throws NseDataParsingException, NseResponseFailureException, NseTimeoutException;
 }
 

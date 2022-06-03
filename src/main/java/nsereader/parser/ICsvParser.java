@@ -8,6 +8,10 @@ import java.util.List;
 
 public interface ICsvParser {
 
+    static ICsvParser getCurrentInstance() {
+        return CsvParserImpl.getInstance();
+    }
+
     List<Stock> parseAllStocksCsv(InputStream iStream) throws NseDataParsingException;
 
 }

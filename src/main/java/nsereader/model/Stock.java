@@ -79,7 +79,7 @@ public class Stock {
 
     @Override
     public String toString() {
-        return getSymbol() + "(" + getNameOfCompany() + ")";
+        return getSymbol() + " (" + getNameOfCompany() + ")";
     }
 
 }
