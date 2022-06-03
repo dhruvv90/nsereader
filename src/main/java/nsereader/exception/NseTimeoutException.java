@@ -1,4 +1,4 @@
-package com.nsereader.exception;
+package nsereader.exception;
 
 public class NseTimeoutException extends Exception {
 

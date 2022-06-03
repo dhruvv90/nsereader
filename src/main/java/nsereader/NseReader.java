@@ -1,4 +1,6 @@
-package com.nsereader;
+package nsereader;
+
+import nsereader.internal.NseReaderBuilderImpl;
 
 public abstract class NseReader {
     public static NseReader createDefault() {
@@ -11,18 +13,6 @@ public abstract class NseReader {
 
     public interface Builder {
         NseReader build();
-    }
-}
-
-
-class NseReaderBuilderImpl implements NseReader.Builder {
-
-    NseReaderBuilderImpl() {
-    }
-
-    @Override
-    public NseReader build() {
-        return new NseReaderImpl(this);
     }
 }
 

@@ -1,4 +1,4 @@
-package com.nsereader.exception;
+package nsereader.exception;
 
 public class NseResponseFailureException extends Exception {
 

@@ -1,4 +1,4 @@
-package com.nsereader.dataparser;
+package nsereader.parser;
 
 public interface IJsonParser {
 

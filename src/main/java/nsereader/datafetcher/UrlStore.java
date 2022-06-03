@@ -1,6 +1,6 @@
-package com.nsereader.datafetcher;
+package nsereader.datafetcher;
 
-class UrlRepository {
+class UrlStore {
     static final String ROOT_URL = "http://www1.nseindia.com";
     static final String ALL_STOCKS = ROOT_URL + "/content/equities/EQUITY_L.csv";
     static final String ALL_INDICES = ROOT_URL + "/homepage/Indices1.json";
