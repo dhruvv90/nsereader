@@ -8,10 +8,10 @@ public class Stock {
     private String nameOfCompany;
     private String series;
     private Date dateOfListing;
-    private double paidUpValue;
-    private short marketLot;
+    private Double paidUpValue;
+    private Short marketLot;
     private String isinNumber;
-    private short faceValue;
+    private Short faceValue;
 
     public Stock(String symbol) {
         this.symbol = symbol;
@@ -45,19 +45,19 @@ public class Stock {
         this.dateOfListing = dateOfListing;
     }
 
-    public double getPaidUpValue() {
+    public Double getPaidUpValue() {
         return paidUpValue;
     }
 
-    public void setPaidUpValue(double paidUpValue) {
+    public void setPaidUpValue(Double paidUpValue) {
         this.paidUpValue = paidUpValue;
     }
 
-    public short getMarketLot() {
+    public Short getMarketLot() {
         return marketLot;
     }
 
-    public void setMarketLot(short marketLot) {
+    public void setMarketLot(Short marketLot) {
         this.marketLot = marketLot;
     }
 
@@ -69,11 +69,11 @@ public class Stock {
         this.isinNumber = isinNumber;
     }
 
-    public short getFaceValue() {
+    public Short getFaceValue() {
         return faceValue;
     }
 
-    public void setFaceValue(short faceValue) {
+    public void setFaceValue(Short faceValue) {
         this.faceValue = faceValue;
     }
 

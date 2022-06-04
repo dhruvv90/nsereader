@@ -12,7 +12,7 @@ public interface ICsvParser {
         return CsvParserImpl.getInstance();
     }
 
-    List<Stock> parseAllStocksCsv(InputStream iStream) throws NseDataParsingException;
+    List<Stock> parseAllStocks(InputStream iStream) throws NseDataParsingException;
 
 }
 

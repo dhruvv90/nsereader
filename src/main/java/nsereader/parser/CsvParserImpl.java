@@ -17,7 +17,7 @@ class CsvParserImpl implements ICsvParser {
     private CsvParserImpl() {
     }
 
-    static ICsvParser getInstance() {
+    static CsvParserImpl getInstance() {
         if (instance == null) {
             instance = new CsvParserImpl();
         }
@@ -26,7 +26,7 @@ class CsvParserImpl implements ICsvParser {
 
     @SuppressWarnings("UnusedAssignment")
     @Override
-    public List<Stock> parseAllStocksCsv(InputStream iStream) throws NseDataParsingException {
+    public List<Stock> parseAllStocks(InputStream iStream) throws NseDataParsingException {
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(iStream));
             List<Stock> stockList = new ArrayList<>();
