@@ -32,8 +32,8 @@ class NseReaderTest {
 
     @Test
     void ICsvParser_Build() {
-        var first = ICsvParser.getCurrentInstance();
-        var second = ICsvParser.getCurrentInstance();
+        ICsvParser first = ICsvParser.getCurrentInstance();
+        ICsvParser second = ICsvParser.getCurrentInstance();
 
         assertEquals(first, second);
         assertSame(first, second);
@@ -41,8 +41,8 @@ class NseReaderTest {
 
     @Test
     void IDataFetcher_Build() {
-        var first = IDataFetcher.getCurrentInstance();
-        var second = IDataFetcher.getCurrentInstance();
+        IDataFetcher first = IDataFetcher.getCurrentInstance();
+        IDataFetcher second = IDataFetcher.getCurrentInstance();
 
         assertEquals(first, second);
         assertSame(first, second);
