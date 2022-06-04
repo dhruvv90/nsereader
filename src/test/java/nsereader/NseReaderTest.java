@@ -20,7 +20,6 @@ class NseReaderTest {
         nseReader = NseReader.createDefault();
     }
 
-
     @Test
     void getAllStocks() throws Exception {
         List<Stock> stockList = nseReader.getStocks();
@@ -28,9 +27,23 @@ class NseReaderTest {
     }
 
     @Test
+    void getAllStocks_Caching() throws Exception {
+        List<Stock> l1 = nseReader.getStocks();
+        List<Stock> l2 = nseReader.getStocks();
+        assertSame(l1, l2);
+    }
+
+    @Test
     void getAllIndices() throws Exception {
         List<Index> indexList = nseReader.getIndices();
         assertTrue(indexList.size() > 0);
+    }
+
+    @Test
+    void getAllIndices_Caching() throws Exception {
+        List<Index> l1 = nseReader.getIndices();
+        List<Index> l2 = nseReader.getIndices();
+        assertSame(l1, l2);
     }
 
     @Test
