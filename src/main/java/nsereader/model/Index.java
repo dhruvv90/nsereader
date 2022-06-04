@@ -1,23 +1,18 @@
 package nsereader.model;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
-import java.io.IOException;
 
 public class Index {
 
     private String name;
 
-    @JsonDeserialize(using = PriceDeserializer.class)
+    @JsonDeserialize(using = DoubleCommaDeserializer.class)
     private Double lastPrice;
 
-    @JsonDeserialize(using = PriceDeserializer.class)
+    @JsonDeserialize(using = DoubleCommaDeserializer.class)
     private Double change;
 
-    @JsonDeserialize(using = PriceDeserializer.class)
+    @JsonDeserialize(using = DoubleCommaDeserializer.class)
     private Double pChange;
 
     private String imgFileName;
@@ -72,14 +67,3 @@ public class Index {
 }
 
 
-class PriceDeserializer extends JsonDeserializer<Double> {
-
-    @Override
-    public Double deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
-        String s = p.getText();
-        if (s.contains(",")) {
-            s = s.replace(",", "");
-        }
-        return Double.valueOf(s);
-    }
-}

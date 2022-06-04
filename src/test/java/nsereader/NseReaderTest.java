@@ -1,6 +1,7 @@
 package nsereader;
 
 import nsereader.datafetcher.IDataFetcher;
+import nsereader.model.GainerLoserStat;
 import nsereader.model.Index;
 import nsereader.model.Stock;
 import nsereader.parser.ICsvParser;
@@ -34,7 +35,7 @@ class NseReaderTest {
     }
 
     @Test
-    void isValidStockCode() throws Exception {
+    void isValidStockCode()  {
         boolean check = nseReader.isValidStockCode("hdfc");
         boolean check1 = nseReader.isValidStockCode("abcd");
         boolean check2 = nseReader.isValidStockCode("hdFC");
@@ -58,7 +59,7 @@ class NseReaderTest {
     }
 
     @Test
-    void isValidIndexCode() throws Exception {
+    void isValidIndexCode()  {
         boolean check = nseReader.isValidIndexCode("abcd");
         boolean check1 = nseReader.isValidIndexCode("NIFTY 50 Pre Open");
         boolean check2 = nseReader.isValidIndexCode("NiFtY 50 pre Open");
@@ -82,5 +83,17 @@ class NseReaderTest {
         IDataFetcher second = IDataFetcher.getCurrentInstance();
         assertEquals(first, second);
         assertSame(first, second);
+    }
+
+    @Test
+    void getTopGainers() throws Exception {
+        List<GainerLoserStat> list = nseReader.getTopGainers();
+        assertFalse(list.isEmpty());
+    }
+
+    @Test
+    void getTopLosers() throws Exception {
+        List<GainerLoserStat> list = nseReader.getTopLosers();
+        assertFalse(list.isEmpty());
     }
 }

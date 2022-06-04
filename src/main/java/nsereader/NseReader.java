@@ -3,6 +3,7 @@ package nsereader;
 import nsereader.exception.NseDataParsingException;
 import nsereader.exception.NseResponseFailureException;
 import nsereader.exception.NseTimeoutException;
+import nsereader.model.GainerLoserStat;
 import nsereader.model.Index;
 import nsereader.model.Stock;
 
@@ -24,6 +25,11 @@ public abstract class NseReader {
     public abstract boolean isValidStockCode(String code);
 
     public abstract boolean isValidIndexCode(String code);
+
+    public abstract List<GainerLoserStat> getTopGainers() throws NseDataParsingException, NseResponseFailureException, NseTimeoutException;
+
+    public abstract List<GainerLoserStat> getTopLosers() throws NseDataParsingException, NseResponseFailureException, NseTimeoutException;
+
 
     public interface Builder {
         NseReader build();
