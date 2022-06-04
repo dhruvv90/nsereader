@@ -34,6 +34,17 @@ class NseReaderTest {
     }
 
     @Test
+    void isValidStockCode() throws Exception {
+        boolean check = nseReader.isValidStockCode("hdfc");
+        boolean check1 = nseReader.isValidStockCode("abcd");
+        boolean check2 = nseReader.isValidStockCode("hdFC");
+
+        assertTrue(check);
+        assertTrue(check2);
+        assertFalse(check1);
+    }
+
+    @Test
     void getAllIndices() throws Exception {
         List<Index> indexList = nseReader.getIndices();
         assertTrue(indexList.size() > 0);
@@ -44,6 +55,17 @@ class NseReaderTest {
         List<Index> l1 = nseReader.getIndices();
         List<Index> l2 = nseReader.getIndices();
         assertSame(l1, l2);
+    }
+
+    @Test
+    void isValidIndexCode() throws Exception {
+        boolean check = nseReader.isValidIndexCode("abcd");
+        boolean check1 = nseReader.isValidIndexCode("NIFTY 50 Pre Open");
+        boolean check2 = nseReader.isValidIndexCode("NiFtY 50 pre Open");
+
+        assertTrue(check1);
+        assertTrue(check2);
+        assertFalse(check);
     }
 
     @Test

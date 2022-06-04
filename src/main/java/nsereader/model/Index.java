@@ -30,7 +30,7 @@ public class Index {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = name.toUpperCase();
     }
 
     public Double getLastPrice() {

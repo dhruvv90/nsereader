@@ -21,6 +21,10 @@ public abstract class NseReader {
 
     public abstract List<Index> getIndices() throws NseDataParsingException, NseResponseFailureException, NseTimeoutException;
 
+    public abstract boolean isValidStockCode(String code);
+
+    public abstract boolean isValidIndexCode(String code);
+
     public interface Builder {
         NseReader build();
     }

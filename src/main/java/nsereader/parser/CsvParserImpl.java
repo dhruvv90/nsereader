@@ -47,7 +47,9 @@ class CsvParserImpl implements ICsvParser {
                 }
 
                 int i = 0;
-                Stock stock = new Stock(fragments[i++]);
+                Stock stock = new Stock();
+
+                stock.setSymbol(fragments[i++]);
                 stock.setNameOfCompany(fragments[i++]);
                 stock.setSeries(fragments[i++]);
                 stock.setDateOfListing(new SimpleDateFormat("dd-MMM-yyyy").parse(fragments[i++]));

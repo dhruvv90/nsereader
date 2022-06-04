@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Stock {
 
-    private final String symbol;
+    private String symbol;
     private String nameOfCompany;
     private String series;
     private Date dateOfListing;
@@ -13,8 +13,11 @@ public class Stock {
     private String isinNumber;
     private Short faceValue;
 
-    public Stock(String symbol) {
-        this.symbol = symbol;
+    public Stock() {
+    }
+
+    public void setSymbol(String symbol) {
+        this.symbol = symbol.toUpperCase();
     }
 
     public String getSymbol() {
