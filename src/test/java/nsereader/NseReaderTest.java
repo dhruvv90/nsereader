@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -36,7 +37,7 @@ class NseReaderTest {
     }
 
     @Test
-    void isValidStockCode()  {
+    void isValidStockCode() {
         boolean check = nseReader.isValidStockCode("hdfc");
         boolean check1 = nseReader.isValidStockCode("abcd");
         boolean check2 = nseReader.isValidStockCode("hdFC");
@@ -60,7 +61,7 @@ class NseReaderTest {
     }
 
     @Test
-    void isValidIndexCode()  {
+    void isValidIndexCode() {
         boolean check = nseReader.isValidIndexCode("abcd");
         boolean check1 = nseReader.isValidIndexCode("NIFTY 50 Pre Open");
         boolean check2 = nseReader.isValidIndexCode("NiFtY 50 pre Open");
@@ -103,5 +104,13 @@ class NseReaderTest {
         List<AdvanceDeclineStats> list = nseReader.getAdvancesDeclines();
         System.out.println(list);
         assertFalse(list.isEmpty());
+    }
+
+    @Test
+    void getIndexQuote() throws Exception {
+        Index quote = nseReader.getIndexQuote("nifty 50");
+        assertNotNull(quote);
+
+        assertThrows(NoSuchElementException.class, () -> nseReader.getIndexQuote("nifty 501"));
     }
 }

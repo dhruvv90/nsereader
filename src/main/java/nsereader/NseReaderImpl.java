@@ -10,6 +10,7 @@ import nsereader.model.Index;
 import nsereader.model.Stock;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 class NseReaderImpl extends NseReader {
 
@@ -51,7 +52,7 @@ class NseReaderImpl extends NseReader {
                 }
             }
             return false;
-        } catch (Exception e) {
+        } catch (NseDataParsingException | NseResponseFailureException | NseTimeoutException e) {
             return false;
         }
     }
@@ -66,7 +67,7 @@ class NseReaderImpl extends NseReader {
                 }
             }
             return false;
-        } catch (Exception e) {
+        } catch (NseDataParsingException | NseResponseFailureException | NseTimeoutException e) {
             return false;
         }
     }
@@ -87,5 +88,16 @@ class NseReaderImpl extends NseReader {
     public List<AdvanceDeclineStats> getAdvancesDeclines() throws NseDataParsingException, NseResponseFailureException, NseTimeoutException {
         List<AdvanceDeclineStats> stats = this.dataFetcher.getAdvancesDeclines();
         return stats;
+    }
+
+    @Override
+    public Index getIndexQuote(String indexCode) throws NoSuchElementException, NseTimeoutException, NseResponseFailureException, NseDataParsingException {
+        List<Index> indexList = this.getIndices();
+        for(Index i: indexList){
+            if(i.getName().equals(indexCode.toUpperCase())){
+                return i;
+            }
+        }
+        throw new NoSuchElementException("invalid indexCode/ fetch or parse error from NSE");
     }
 }

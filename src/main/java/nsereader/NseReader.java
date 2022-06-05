@@ -9,6 +9,7 @@ import nsereader.model.Index;
 import nsereader.model.Stock;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public abstract class NseReader {
     public static NseReader createDefault() {
@@ -33,6 +34,7 @@ public abstract class NseReader {
 
     public abstract List<AdvanceDeclineStats> getAdvancesDeclines() throws NseDataParsingException, NseResponseFailureException, NseTimeoutException;
 
+    public abstract Index getIndexQuote(String indexCode) throws NoSuchElementException, NseTimeoutException, NseResponseFailureException, NseDataParsingException;
 
     public interface Builder {
         NseReader build();
