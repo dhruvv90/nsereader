@@ -4,6 +4,7 @@ import nsereader.datafetcher.IDataFetcher;
 import nsereader.exception.NseDataParsingException;
 import nsereader.exception.NseResponseFailureException;
 import nsereader.exception.NseTimeoutException;
+import nsereader.model.AdvanceDeclineStats;
 import nsereader.model.GainerLoserStats;
 import nsereader.model.Index;
 import nsereader.model.Stock;
@@ -79,6 +80,12 @@ class NseReaderImpl extends NseReader {
     @Override
     public List<GainerLoserStats> getTopLosers() throws NseDataParsingException, NseResponseFailureException, NseTimeoutException {
         List<GainerLoserStats> stats = this.dataFetcher.getTopLosers();
+        return stats;
+    }
+
+    @Override
+    public List<AdvanceDeclineStats> getAdvancesDeclines() throws NseDataParsingException, NseResponseFailureException, NseTimeoutException {
+        List<AdvanceDeclineStats> stats = this.dataFetcher.getAdvancesDeclines();
         return stats;
     }
 }

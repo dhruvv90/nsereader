@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import nsereader.exception.NseDataParsingException;
+import nsereader.model.AdvanceDeclineStats;
 import nsereader.model.GainerLoserStats;
 import nsereader.model.Index;
 
@@ -93,6 +94,36 @@ class JsonParserImpl implements IJsonParser {
     @Override
     public List<GainerLoserStats> parseTopLosers(InputStream iStream) throws NseDataParsingException {
         return this.parseTop(iStream);
+    }
+
+    @Override
+    public List<AdvanceDeclineStats> parseAdvancesDeclines(InputStream iStream) throws NseDataParsingException {
+        ObjectMapper mapper = new ObjectMapper();
+        List<AdvanceDeclineStats> stats = new ArrayList<>();
+
+        JsonFactory jsonFactory = new JsonFactory();
+        try (JsonParser parser = jsonFactory.createParser(iStream)) {
+            while (!parser.isClosed()) {
+                JsonToken token = parser.nextToken();
+                if (JsonToken.FIELD_NAME.equals(token) && parser.getCurrentName().equals("data")) {
+                    if (parser.nextToken() != JsonToken.START_ARRAY) {
+                        throw new NseDataParsingException();
+                    }
+
+                    while (parser.nextToken() != JsonToken.END_ARRAY) {
+                        AdvanceDeclineStats stat = mapper.readValue(parser, AdvanceDeclineStats.class);
+                        stats.add(stat);
+                    }
+                    if (stats.isEmpty()) {
+                        throw new NseDataParsingException("Empty data from NSE");
+                    }
+                    break;
+                }
+            }
+        } catch (IOException e) {
+            throw new NseDataParsingException(e);
+        }
+        return stats;
     }
 }
 

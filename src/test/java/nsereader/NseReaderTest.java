@@ -1,6 +1,7 @@
 package nsereader;
 
 import nsereader.datafetcher.IDataFetcher;
+import nsereader.model.AdvanceDeclineStats;
 import nsereader.model.GainerLoserStats;
 import nsereader.model.Index;
 import nsereader.model.Stock;
@@ -94,6 +95,13 @@ class NseReaderTest {
     @Test
     void getTopLosers() throws Exception {
         List<GainerLoserStats> list = nseReader.getTopLosers();
+        assertFalse(list.isEmpty());
+    }
+
+    @Test
+    void getAdvancesDeclines() throws Exception {
+        List<AdvanceDeclineStats> list = nseReader.getAdvancesDeclines();
+        System.out.println(list);
         assertFalse(list.isEmpty());
     }
 }

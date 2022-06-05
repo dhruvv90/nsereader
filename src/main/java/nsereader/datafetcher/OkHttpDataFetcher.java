@@ -3,6 +3,7 @@ package nsereader.datafetcher;
 import nsereader.exception.NseDataParsingException;
 import nsereader.exception.NseResponseFailureException;
 import nsereader.exception.NseTimeoutException;
+import nsereader.model.AdvanceDeclineStats;
 import nsereader.model.GainerLoserStats;
 import nsereader.model.Index;
 import nsereader.model.Stock;
@@ -113,6 +114,29 @@ class OkHttpDataFetcher implements IDataFetcher {
             }
             InputStream iStream = res.body().byteStream();
             stats = this.jsonParser.parseTopLosers(iStream);
+        }
+        catch(IOException e){
+            throw new NseTimeoutException(e);
+        }
+        return stats;
+    }
+
+    @Override
+    public List<AdvanceDeclineStats> getAdvancesDeclines() throws NseDataParsingException, NseResponseFailureException, NseTimeoutException {
+        Request req = new Request.Builder()
+                .url(UrlStore.ADVANCES_DECLINES)
+                .addHeader("Accept", "*/*")
+                .addHeader("User-Agent", "linux")
+                .build();
+
+        List<AdvanceDeclineStats> stats;
+
+        try(Response res = httpClient.newCall(req).execute()){
+            if (res.code() != HttpUtils.HTTP_CODE_OK || res.body() == null) {
+                throw new NseResponseFailureException();
+            }
+            InputStream iStream = res.body().byteStream();
+            stats = this.jsonParser.parseAdvancesDeclines(iStream);
         }
         catch(IOException e){
             throw new NseTimeoutException(e);
