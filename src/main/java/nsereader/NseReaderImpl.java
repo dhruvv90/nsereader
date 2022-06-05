@@ -4,7 +4,7 @@ import nsereader.datafetcher.IDataFetcher;
 import nsereader.exception.NseDataParsingException;
 import nsereader.exception.NseResponseFailureException;
 import nsereader.exception.NseTimeoutException;
-import nsereader.model.GainerLoserStat;
+import nsereader.model.GainerLoserStats;
 import nsereader.model.Index;
 import nsereader.model.Stock;
 
@@ -71,14 +71,14 @@ class NseReaderImpl extends NseReader {
     }
 
     @Override
-    public List<GainerLoserStat> getTopGainers() throws NseDataParsingException, NseResponseFailureException, NseTimeoutException {
-        List<GainerLoserStat> stats = this.dataFetcher.getTopGainers();
+    public List<GainerLoserStats> getTopGainers() throws NseDataParsingException, NseResponseFailureException, NseTimeoutException {
+        List<GainerLoserStats> stats = this.dataFetcher.getTopGainers();
         return stats;
     }
 
     @Override
-    public List<GainerLoserStat> getTopLosers() throws NseDataParsingException, NseResponseFailureException, NseTimeoutException {
-        List<GainerLoserStat> stats = this.dataFetcher.getTopLosers();
+    public List<GainerLoserStats> getTopLosers() throws NseDataParsingException, NseResponseFailureException, NseTimeoutException {
+        List<GainerLoserStats> stats = this.dataFetcher.getTopLosers();
         return stats;
     }
 }

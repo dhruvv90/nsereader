@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import java.util.Date;
 
-public class GainerLoserStat {
+public class GainerLoserStats {
     private String symbol;
     private String series;
 
@@ -38,7 +38,7 @@ public class GainerLoserStat {
 
     private String lastCorpAnnouncement;
 
-    public GainerLoserStat() {
+    public GainerLoserStats() {
 
     }
 

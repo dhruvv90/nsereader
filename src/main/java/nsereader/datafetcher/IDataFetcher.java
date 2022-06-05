@@ -3,7 +3,7 @@ package nsereader.datafetcher;
 import nsereader.exception.NseDataParsingException;
 import nsereader.exception.NseResponseFailureException;
 import nsereader.exception.NseTimeoutException;
-import nsereader.model.GainerLoserStat;
+import nsereader.model.GainerLoserStats;
 import nsereader.model.Index;
 import nsereader.model.Stock;
 
@@ -19,8 +19,8 @@ public interface IDataFetcher {
 
     List<Index> getIndices() throws NseDataParsingException, NseResponseFailureException, NseTimeoutException;
 
-    List<GainerLoserStat> getTopGainers() throws NseDataParsingException, NseResponseFailureException, NseTimeoutException;
+    List<GainerLoserStats> getTopGainers() throws NseDataParsingException, NseResponseFailureException, NseTimeoutException;
 
-    List<GainerLoserStat> getTopLosers() throws NseDataParsingException, NseResponseFailureException, NseTimeoutException;
+    List<GainerLoserStats> getTopLosers() throws NseDataParsingException, NseResponseFailureException, NseTimeoutException;
 }
 

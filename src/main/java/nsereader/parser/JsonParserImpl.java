@@ -5,7 +5,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import nsereader.exception.NseDataParsingException;
-import nsereader.model.GainerLoserStat;
+import nsereader.model.GainerLoserStats;
 import nsereader.model.Index;
 
 import java.io.IOException;
@@ -56,10 +56,9 @@ class JsonParserImpl implements IJsonParser {
         return indexList;
     }
 
-    @Override
-    public List<GainerLoserStat> parseTop(InputStream iStream) throws NseDataParsingException {
+    private List<GainerLoserStats> parseTop(InputStream iStream) throws NseDataParsingException {
         ObjectMapper mapper = new ObjectMapper();
-        List<GainerLoserStat> stats = new ArrayList<>();
+        List<GainerLoserStats> stats = new ArrayList<>();
 
         JsonFactory jsonFactory = new JsonFactory();
         try (JsonParser parser = jsonFactory.createParser(iStream)) {
@@ -71,7 +70,7 @@ class JsonParserImpl implements IJsonParser {
                     }
 
                     while (parser.nextToken() != JsonToken.END_ARRAY) {
-                        GainerLoserStat stat = mapper.readValue(parser, GainerLoserStat.class);
+                        GainerLoserStats stat = mapper.readValue(parser, GainerLoserStats.class);
                         stats.add(stat);
                     }
                     if (stats.isEmpty()) {
@@ -84,6 +83,16 @@ class JsonParserImpl implements IJsonParser {
             throw new NseDataParsingException(e);
         }
         return stats;
+    }
+
+    @Override
+    public List<GainerLoserStats> parseTopGainers(InputStream iStream) throws NseDataParsingException {
+        return this.parseTop(iStream);
+    }
+
+    @Override
+    public List<GainerLoserStats> parseTopLosers(InputStream iStream) throws NseDataParsingException {
+        return this.parseTop(iStream);
     }
 }
 

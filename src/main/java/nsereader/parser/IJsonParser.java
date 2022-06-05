@@ -1,7 +1,7 @@
 package nsereader.parser;
 
 import nsereader.exception.NseDataParsingException;
-import nsereader.model.GainerLoserStat;
+import nsereader.model.GainerLoserStats;
 import nsereader.model.Index;
 
 import java.io.InputStream;
@@ -16,6 +16,9 @@ public interface IJsonParser {
     List<Index> parseAllIndices(InputStream iStream) throws NseDataParsingException;
 
 
-    List<GainerLoserStat> parseTop(InputStream iStream) throws NseDataParsingException;
+    List<GainerLoserStats> parseTopGainers(InputStream iStream) throws NseDataParsingException;
+
+    List<GainerLoserStats> parseTopLosers(InputStream iStream) throws NseDataParsingException;
+
 }
 

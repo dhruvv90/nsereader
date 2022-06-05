@@ -1,7 +1,7 @@
 package nsereader;
 
 import nsereader.datafetcher.IDataFetcher;
-import nsereader.model.GainerLoserStat;
+import nsereader.model.GainerLoserStats;
 import nsereader.model.Index;
 import nsereader.model.Stock;
 import nsereader.parser.ICsvParser;
@@ -87,13 +87,13 @@ class NseReaderTest {
 
     @Test
     void getTopGainers() throws Exception {
-        List<GainerLoserStat> list = nseReader.getTopGainers();
+        List<GainerLoserStats> list = nseReader.getTopGainers();
         assertFalse(list.isEmpty());
     }
 
     @Test
     void getTopLosers() throws Exception {
-        List<GainerLoserStat> list = nseReader.getTopLosers();
+        List<GainerLoserStats> list = nseReader.getTopLosers();
         assertFalse(list.isEmpty());
     }
 }

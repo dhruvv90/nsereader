@@ -3,7 +3,7 @@ package nsereader.datafetcher;
 import nsereader.exception.NseDataParsingException;
 import nsereader.exception.NseResponseFailureException;
 import nsereader.exception.NseTimeoutException;
-import nsereader.model.GainerLoserStat;
+import nsereader.model.GainerLoserStats;
 import nsereader.model.Index;
 import nsereader.model.Stock;
 import nsereader.parser.ICsvParser;
@@ -74,21 +74,22 @@ class OkHttpDataFetcher implements IDataFetcher {
         return indexList;
     }
 
-    private List<GainerLoserStat> getTop(String url) throws NseDataParsingException, NseResponseFailureException, NseTimeoutException {
+    @Override
+    public List<GainerLoserStats> getTopGainers() throws NseDataParsingException, NseResponseFailureException, NseTimeoutException {
         Request req = new Request.Builder()
-                .url(url)
+                .url(UrlStore.TOP_GAINER_STOCKS)
                 .addHeader("Accept", "*/*")
                 .addHeader("User-Agent", "linux")
                 .build();
 
-        List<GainerLoserStat> stats;
+        List<GainerLoserStats> stats;
 
         try(Response res = httpClient.newCall(req).execute()){
             if (res.code() != HttpUtils.HTTP_CODE_OK || res.body() == null) {
                 throw new NseResponseFailureException();
             }
             InputStream iStream = res.body().byteStream();
-            stats = this.jsonParser.parseTop(iStream);
+            stats = this.jsonParser.parseTopGainers(iStream);
         }
         catch(IOException e){
             throw new NseTimeoutException(e);
@@ -97,12 +98,25 @@ class OkHttpDataFetcher implements IDataFetcher {
     }
 
     @Override
-    public List<GainerLoserStat> getTopGainers() throws NseDataParsingException, NseResponseFailureException, NseTimeoutException {
-        return this.getTop(UrlStore.TOP_GAINER_STOCKS);
-    }
+    public List<GainerLoserStats> getTopLosers() throws NseDataParsingException, NseResponseFailureException, NseTimeoutException {
+        Request req = new Request.Builder()
+                .url(UrlStore.TOP_LOSER_STOCKS)
+                .addHeader("Accept", "*/*")
+                .addHeader("User-Agent", "linux")
+                .build();
 
-    @Override
-    public List<GainerLoserStat> getTopLosers() throws NseDataParsingException, NseResponseFailureException, NseTimeoutException {
-        return this.getTop(UrlStore.TOP_LOSER_STOCKS);
+        List<GainerLoserStats> stats;
+
+        try(Response res = httpClient.newCall(req).execute()){
+            if (res.code() != HttpUtils.HTTP_CODE_OK || res.body() == null) {
+                throw new NseResponseFailureException();
+            }
+            InputStream iStream = res.body().byteStream();
+            stats = this.jsonParser.parseTopLosers(iStream);
+        }
+        catch(IOException e){
+            throw new NseTimeoutException(e);
+        }
+        return stats;
     }
 }
