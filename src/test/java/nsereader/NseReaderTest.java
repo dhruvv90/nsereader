@@ -1,7 +1,6 @@
 package nsereader;
 
 import nsereader.internal.datafetcher.IDataFetcher;
-import nsereader.internal.parser.ICsvParser;
 import nsereader.model.AdvanceDeclineStats;
 import nsereader.model.GainerLoserStats;
 import nsereader.model.Index;
@@ -58,13 +57,6 @@ class NseReaderTest {
         assertFalse(check);
     }
 
-    @Test
-    void ICsvParser_Build() {
-        ICsvParser first = ICsvParser.getCurrentInstance();
-        ICsvParser second = ICsvParser.getCurrentInstance();
-        assertEquals(first, second);
-        assertSame(first, second);
-    }
 
     @Test
     void IDataFetcher_Build() {

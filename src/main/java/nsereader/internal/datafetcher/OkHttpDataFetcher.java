@@ -3,8 +3,8 @@ package nsereader.internal.datafetcher;
 import nsereader.exception.NseDataParsingException;
 import nsereader.exception.NseResponseFailureException;
 import nsereader.exception.NseTimeoutException;
-import nsereader.internal.parser.ICsvParser;
-import nsereader.internal.parser.IJsonParser;
+import nsereader.internal.parser.CsvParser;
+import nsereader.internal.parser.JsonParser;
 import nsereader.model.AdvanceDeclineStats;
 import nsereader.model.GainerLoserStats;
 import nsereader.model.Index;
@@ -21,13 +21,9 @@ import java.util.List;
 public class OkHttpDataFetcher implements IDataFetcher {
     private static OkHttpDataFetcher instance;
     private final OkHttpClient httpClient;
-    private final ICsvParser csvParser;
-    private final IJsonParser jsonParser;
 
     private OkHttpDataFetcher() {
         this.httpClient = new OkHttpClient.Builder().build();
-        this.csvParser = ICsvParser.getCurrentInstance();
-        this.jsonParser = IJsonParser.getCurrentInstance();
     }
 
     public static OkHttpDataFetcher getInstance() {
@@ -46,7 +42,7 @@ public class OkHttpDataFetcher implements IDataFetcher {
                 throw new NseResponseFailureException();
             }
             InputStream iStream = res.body().byteStream();
-            stockList = this.csvParser.parseAllStocks(iStream);
+            stockList = CsvParser.parseAllStocks(iStream);
             return stockList;
         } catch (IOException e) {
             throw new NseTimeoutException(e);
@@ -67,7 +63,7 @@ public class OkHttpDataFetcher implements IDataFetcher {
                 throw new NseResponseFailureException();
             }
             InputStream iStream = res.body().byteStream();
-            indexList = this.jsonParser.parseAllIndices(iStream);
+            indexList = JsonParser.parseAllIndices(iStream);
         }
         catch(IOException e){
             throw new NseTimeoutException(e);
@@ -90,7 +86,7 @@ public class OkHttpDataFetcher implements IDataFetcher {
                 throw new NseResponseFailureException();
             }
             InputStream iStream = res.body().byteStream();
-            stats = this.jsonParser.parseTopGainers(iStream);
+            stats = JsonParser.parseTopGainers(iStream);
         }
         catch(IOException e){
             throw new NseTimeoutException(e);
@@ -113,7 +109,7 @@ public class OkHttpDataFetcher implements IDataFetcher {
                 throw new NseResponseFailureException();
             }
             InputStream iStream = res.body().byteStream();
-            stats = this.jsonParser.parseTopLosers(iStream);
+            stats = JsonParser.parseTopLosers(iStream);
         }
         catch(IOException e){
             throw new NseTimeoutException(e);
@@ -136,7 +132,7 @@ public class OkHttpDataFetcher implements IDataFetcher {
                 throw new NseResponseFailureException();
             }
             InputStream iStream = res.body().byteStream();
-            stats = this.jsonParser.parseAdvancesDeclines(iStream);
+            stats = JsonParser.parseAdvancesDeclines(iStream);
         }
         catch(IOException e){
             throw new NseTimeoutException(e);

@@ -1,7 +1,6 @@
 package nsereader.internal.parser;
 
 import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import nsereader.exception.NseDataParsingException;
@@ -14,26 +13,18 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-class JsonParserImpl implements IJsonParser {
-    private static JsonParserImpl instance;
+public class JsonParser {
 
-    private JsonParserImpl() {
+    private JsonParser() {
+
     }
 
-    static JsonParserImpl getInstance() {
-        if (instance == null) {
-            instance = new JsonParserImpl();
-        }
-        return instance;
-    }
-
-    @Override
-    public List<Index> parseAllIndices(InputStream iStream) throws NseDataParsingException {
+    public static List<Index> parseAllIndices(InputStream iStream) throws NseDataParsingException {
         ObjectMapper mapper = new ObjectMapper();
         List<Index> indexList = new ArrayList<>();
 
         JsonFactory jsonFactory = new JsonFactory();
-        try (JsonParser parser = jsonFactory.createParser(iStream)) {
+        try (com.fasterxml.jackson.core.JsonParser parser = jsonFactory.createParser(iStream)) {
             while (!parser.isClosed()) {
                 JsonToken token = parser.nextToken();
                 if (JsonToken.FIELD_NAME.equals(token) && parser.getCurrentName().equals("data")) {
@@ -57,12 +48,12 @@ class JsonParserImpl implements IJsonParser {
         return indexList;
     }
 
-    private List<GainerLoserStats> parseTop(InputStream iStream) throws NseDataParsingException {
+    private static List<GainerLoserStats> parseTop(InputStream iStream) throws NseDataParsingException {
         ObjectMapper mapper = new ObjectMapper();
         List<GainerLoserStats> stats = new ArrayList<>();
 
         JsonFactory jsonFactory = new JsonFactory();
-        try (JsonParser parser = jsonFactory.createParser(iStream)) {
+        try (com.fasterxml.jackson.core.JsonParser parser = jsonFactory.createParser(iStream)) {
             while (!parser.isClosed()) {
                 JsonToken token = parser.nextToken();
                 if (JsonToken.FIELD_NAME.equals(token) && parser.getCurrentName().equals("data")) {
@@ -86,23 +77,20 @@ class JsonParserImpl implements IJsonParser {
         return stats;
     }
 
-    @Override
-    public List<GainerLoserStats> parseTopGainers(InputStream iStream) throws NseDataParsingException {
-        return this.parseTop(iStream);
+    public static List<GainerLoserStats> parseTopGainers(InputStream iStream) throws NseDataParsingException {
+        return parseTop(iStream);
     }
 
-    @Override
-    public List<GainerLoserStats> parseTopLosers(InputStream iStream) throws NseDataParsingException {
-        return this.parseTop(iStream);
+    public static List<GainerLoserStats> parseTopLosers(InputStream iStream) throws NseDataParsingException {
+        return parseTop(iStream);
     }
 
-    @Override
-    public List<AdvanceDeclineStats> parseAdvancesDeclines(InputStream iStream) throws NseDataParsingException {
+    public static List<AdvanceDeclineStats> parseAdvancesDeclines(InputStream iStream) throws NseDataParsingException {
         ObjectMapper mapper = new ObjectMapper();
         List<AdvanceDeclineStats> stats = new ArrayList<>();
 
         JsonFactory jsonFactory = new JsonFactory();
-        try (JsonParser parser = jsonFactory.createParser(iStream)) {
+        try (com.fasterxml.jackson.core.JsonParser parser = jsonFactory.createParser(iStream)) {
             while (!parser.isClosed()) {
                 JsonToken token = parser.nextToken();
                 if (JsonToken.FIELD_NAME.equals(token) && parser.getCurrentName().equals("data")) {
@@ -126,5 +114,4 @@ class JsonParserImpl implements IJsonParser {
         return stats;
     }
 }
-
 

@@ -10,23 +10,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-class CsvParserImpl implements ICsvParser {
+public class CsvParser {
 
-    private static CsvParserImpl instance;
+    private CsvParser() {
 
-    private CsvParserImpl() {
     }
 
-    static CsvParserImpl getInstance() {
-        if (instance == null) {
-            instance = new CsvParserImpl();
-        }
-        return instance;
-    }
-
-    @SuppressWarnings("UnusedAssignment")
-    @Override
-    public List<Stock> parseAllStocks(InputStream iStream) throws NseDataParsingException {
+    public static List<Stock> parseAllStocks(InputStream iStream) throws NseDataParsingException {
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(iStream));
             List<Stock> stockList = new ArrayList<>();
@@ -69,4 +59,7 @@ class CsvParserImpl implements ICsvParser {
             throw new NseDataParsingException(e);
         }
     }
+
 }
+
+
