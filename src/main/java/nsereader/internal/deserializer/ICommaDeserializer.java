@@ -1,4 +1,4 @@
-package nsereader.model;
+package nsereader.internal.deserializer;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 
 import java.io.IOException;
 
-abstract class CommaDeserializer<T> extends JsonDeserializer<T> {
+abstract class ICommaDeserializer<T> extends JsonDeserializer<T> {
 
     abstract T fromString(String s);
 
@@ -21,17 +21,3 @@ abstract class CommaDeserializer<T> extends JsonDeserializer<T> {
 }
 
 
-class DoubleCommaDeserializer extends CommaDeserializer<Double> {
-    @Override
-    Double fromString(String s) {
-        return Double.valueOf(s);
-    }
-}
-
-
-class IntegerCommaDeserializer extends CommaDeserializer<Integer> {
-    @Override
-    Integer fromString(String s) {
-        return Integer.valueOf(s);
-    }
-}

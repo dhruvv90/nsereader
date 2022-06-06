@@ -1,11 +1,11 @@
 package nsereader;
 
-import nsereader.datafetcher.IDataFetcher;
+import nsereader.internal.datafetcher.IDataFetcher;
+import nsereader.internal.parser.ICsvParser;
 import nsereader.model.AdvanceDeclineStats;
 import nsereader.model.GainerLoserStats;
 import nsereader.model.Index;
 import nsereader.model.Stock;
-import nsereader.parser.ICsvParser;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

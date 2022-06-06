@@ -1,4 +1,4 @@
-package nsereader.datafetcher;
+package nsereader.internal.datafetcher;
 
 class UrlStore {
     static final String ROOT_URL = "http://www1.nseindia.com";

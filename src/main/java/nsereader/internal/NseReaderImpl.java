@@ -1,9 +1,10 @@
-package nsereader;
+package nsereader.internal;
 
-import nsereader.datafetcher.IDataFetcher;
+import nsereader.NseReader;
 import nsereader.exception.NseDataParsingException;
 import nsereader.exception.NseResponseFailureException;
 import nsereader.exception.NseTimeoutException;
+import nsereader.internal.datafetcher.IDataFetcher;
 import nsereader.model.AdvanceDeclineStats;
 import nsereader.model.GainerLoserStats;
 import nsereader.model.Index;

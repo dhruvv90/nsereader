@@ -1,4 +1,4 @@
-package nsereader.parser;
+package nsereader.internal.parser;
 
 import nsereader.exception.NseDataParsingException;
 import nsereader.model.AdvanceDeclineStats;

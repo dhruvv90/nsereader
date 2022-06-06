@@ -1,6 +1,7 @@
 package nsereader.model;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import nsereader.internal.deserializer.DoubleCommaDeserializer;
 
 public class Index {
 

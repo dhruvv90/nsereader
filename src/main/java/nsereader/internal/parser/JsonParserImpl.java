@@ -1,4 +1,4 @@
-package nsereader.parser;
+package nsereader.internal.parser;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;

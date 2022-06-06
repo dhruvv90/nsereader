@@ -2,6 +2,8 @@ package nsereader.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import nsereader.internal.deserializer.DoubleCommaDeserializer;
+import nsereader.internal.deserializer.IntegerCommaDeserializer;
 
 import java.util.Date;
 
