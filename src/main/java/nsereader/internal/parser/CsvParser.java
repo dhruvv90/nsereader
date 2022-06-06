@@ -46,6 +46,7 @@ public class CsvParser {
                 stock.setPaidUpValue(Double.parseDouble(fragments[i++]));
                 stock.setMarketLot(Short.parseShort(fragments[i++]));
                 stock.setIsinNumber(fragments[i++]);
+                //noinspection UnusedAssignment
                 stock.setFaceValue(Short.parseShort(fragments[i++]));
 
                 stockList.add(stock);
