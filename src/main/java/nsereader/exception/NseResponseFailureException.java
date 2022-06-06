@@ -1,8 +1,8 @@
 package nsereader.exception;
 
-public class NseResponseFailureException extends Exception {
+public class NseResponseFailureException extends NseException {
 
-    private static final String DEFAULT_MESSAGE = "No Success response from NSE";
+    private static final String DEFAULT_MESSAGE = "NSE failed response";
 
     public NseResponseFailureException() {
         super(DEFAULT_MESSAGE);

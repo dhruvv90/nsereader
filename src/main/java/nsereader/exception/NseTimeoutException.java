@@ -1,8 +1,8 @@
 package nsereader.exception;
 
-public class NseTimeoutException extends Exception {
+public class NseTimeoutException extends NseException {
 
-    private static final String DEFAULT_MESSAGE = "Request timeout from NSE";
+    private static final String DEFAULT_MESSAGE = "NSE Request timeout";
 
     public NseTimeoutException(Throwable cause) {
         super(DEFAULT_MESSAGE, cause);

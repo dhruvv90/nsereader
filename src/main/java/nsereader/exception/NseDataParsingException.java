@@ -1,8 +1,8 @@
 package nsereader.exception;
 
-public class NseDataParsingException extends Exception {
+public class NseDataParsingException extends NseException {
 
-    private static final String DEFAULT_MESSAGE = "Error in parsing NSE data";
+    private static final String DEFAULT_MESSAGE = "Nse Data parsing Exception";
 
     public NseDataParsingException() {
         super(DEFAULT_MESSAGE);
