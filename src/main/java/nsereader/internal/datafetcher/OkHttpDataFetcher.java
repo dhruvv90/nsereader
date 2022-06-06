@@ -1,14 +1,14 @@
-package nsereader.datafetcher;
+package nsereader.internal.datafetcher;
 
 import nsereader.exception.NseDataParsingException;
 import nsereader.exception.NseResponseFailureException;
 import nsereader.exception.NseTimeoutException;
+import nsereader.internal.parser.ICsvParser;
+import nsereader.internal.parser.IJsonParser;
 import nsereader.model.AdvanceDeclineStats;
 import nsereader.model.GainerLoserStats;
 import nsereader.model.Index;
 import nsereader.model.Stock;
-import nsereader.parser.ICsvParser;
-import nsereader.parser.IJsonParser;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -18,7 +18,7 @@ import java.io.InputStream;
 import java.util.List;
 
 
-class OkHttpDataFetcher implements IDataFetcher {
+public class OkHttpDataFetcher implements IDataFetcher {
     private static OkHttpDataFetcher instance;
     private final OkHttpClient httpClient;
     private final ICsvParser csvParser;
@@ -30,7 +30,7 @@ class OkHttpDataFetcher implements IDataFetcher {
         this.jsonParser = IJsonParser.getCurrentInstance();
     }
 
-    static OkHttpDataFetcher getInstance() {
+    public static OkHttpDataFetcher getInstance() {
         if (instance == null) {
             instance = new OkHttpDataFetcher();
         }
