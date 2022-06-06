@@ -23,11 +23,11 @@ public abstract class NseReader {
 
     public abstract List<Stock> getStocks() throws NseDataParsingException, NseResponseFailureException, NseTimeoutException;
 
+    public abstract boolean isValidStock(String stockSymbol) throws NseTimeoutException, NseDataParsingException, NseResponseFailureException;
+
     public abstract List<Index> getIndices() throws NseDataParsingException, NseResponseFailureException, NseTimeoutException;
 
-    public abstract boolean isValidStock(String stockSymbol);
-
-    public abstract boolean isValidIndex(String indexName);
+    public abstract boolean isValidIndex(String indexName) throws NseTimeoutException, NseDataParsingException, NseResponseFailureException;
 
     public abstract List<GainerLoserStats> getTopGainers() throws NseDataParsingException, NseResponseFailureException, NseTimeoutException;
 

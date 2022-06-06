@@ -10,67 +10,68 @@ import nsereader.model.GainerLoserStats;
 import nsereader.model.Index;
 import nsereader.model.Stock;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 class NseReaderImpl extends NseReader {
 
     private final IDataFetcher dataFetcher;
-    private List<Stock> stocks;
-    private List<Index> indices;
+    private final Map<String, Stock> stocksMap;
+    private final Map<String, Index> indexMap;
+
 
     NseReaderImpl(NseReaderBuilderImpl builder) {
         this.dataFetcher = IDataFetcher.getCurrentInstance();
+        this.stocksMap = new HashMap<>();
+        this.indexMap = new HashMap<>();
     }
 
-    @Override
-    public List<Stock> getStocks() throws NseDataParsingException, NseResponseFailureException, NseTimeoutException {
-        if (this.stocks != null) {
-            return this.stocks;
-        }
+    private List<Stock> ingestStocksData() throws NseDataParsingException, NseResponseFailureException, NseTimeoutException {
         List<Stock> stockList = this.dataFetcher.getStocks();
-        this.stocks = stockList;
+        this.stocksMap.clear();
+        for (Stock s : stockList) {
+            this.stocksMap.put(s.getSymbol(), s);
+        }
         return stockList;
     }
 
     @Override
-    public List<Index> getIndices() throws NseDataParsingException, NseResponseFailureException, NseTimeoutException {
-        if (this.indices != null) {
-            return this.indices;
+    public List<Stock> getStocks() throws NseDataParsingException, NseResponseFailureException, NseTimeoutException {
+        List<Stock> stockList = this.ingestStocksData();
+        return stockList;
+    }
+
+    @Override
+    public boolean isValidStock(String stockSymbol) throws NseTimeoutException, NseDataParsingException, NseResponseFailureException {
+        if (this.stocksMap.isEmpty()) {
+            this.ingestStocksData();
         }
+        return this.stocksMap.containsKey(stockSymbol.toUpperCase());
+    }
+
+    private List<Index> ingestIndicesData() throws NseDataParsingException, NseResponseFailureException, NseTimeoutException {
         List<Index> indexList = this.dataFetcher.getIndices();
-        this.indices = indexList;
+        this.indexMap.clear();
+        for (Index i : indexList) {
+            this.indexMap.put(i.getName(), i);
+        }
         return indexList;
     }
 
     @Override
-    public boolean isValidStock(String stockSymbol) {
-        try {
-            List<Stock> stocks = this.getStocks();
-            for (Stock s : stocks) {
-                if (s.getSymbol().equals(stockSymbol.toUpperCase())) {
-                    return true;
-                }
-            }
-            return false;
-        } catch (NseDataParsingException | NseResponseFailureException | NseTimeoutException e) {
-            return false;
-        }
+    public List<Index> getIndices() throws NseDataParsingException, NseResponseFailureException, NseTimeoutException {
+        List<Index> indexList = this.ingestIndicesData();
+        return indexList;
     }
 
     @Override
-    public boolean isValidIndex(String indexName) {
-        try {
-            List<Index> indices = this.getIndices();
-            for (Index i : indices) {
-                if (i.getName().equals(indexName.toUpperCase())) {
-                    return true;
-                }
-            }
-            return false;
-        } catch (NseDataParsingException | NseResponseFailureException | NseTimeoutException e) {
-            return false;
+    public boolean isValidIndex(String indexName) throws NseTimeoutException, NseDataParsingException, NseResponseFailureException {
+        if (this.indexMap.isEmpty()) {
+            this.ingestIndicesData();
         }
+        return this.indexMap.containsKey(indexName.toUpperCase());
     }
 
     @Override
@@ -93,12 +94,13 @@ class NseReaderImpl extends NseReader {
 
     @Override
     public Index getIndexQuote(String indexName) throws NoSuchElementException, NseTimeoutException, NseResponseFailureException, NseDataParsingException {
-        List<Index> indexList = this.getIndices();
-        for(Index i: indexList){
-            if(i.getName().equals(indexName.toUpperCase())){
-                return i;
-            }
+        if (this.indexMap.isEmpty()) {
+            this.ingestIndicesData();
         }
-        throw new NoSuchElementException("invalid indexName or fetch/parse error from NSE");
+        Index idx = this.indexMap.get(indexName.toUpperCase());
+        if (idx == null) {
+            throw new NoSuchElementException("Invalid indexName: Not found");
+        }
+        return idx;
     }
 }
