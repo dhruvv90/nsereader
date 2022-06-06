@@ -44,11 +44,11 @@ class NseReaderImpl extends NseReader {
     }
 
     @Override
-    public boolean isValidStockCode(String code) {
+    public boolean isValidStock(String stockSymbol) {
         try {
             List<Stock> stocks = this.getStocks();
             for (Stock s : stocks) {
-                if (s.getSymbol().equals(code.toUpperCase())) {
+                if (s.getSymbol().equals(stockSymbol.toUpperCase())) {
                     return true;
                 }
             }
@@ -59,11 +59,11 @@ class NseReaderImpl extends NseReader {
     }
 
     @Override
-    public boolean isValidIndexCode(String code) {
+    public boolean isValidIndex(String indexName) {
         try {
             List<Index> indices = this.getIndices();
             for (Index i : indices) {
-                if (i.getName().equals(code.toUpperCase())) {
+                if (i.getName().equals(indexName.toUpperCase())) {
                     return true;
                 }
             }
@@ -92,13 +92,13 @@ class NseReaderImpl extends NseReader {
     }
 
     @Override
-    public Index getIndexQuote(String indexCode) throws NoSuchElementException, NseTimeoutException, NseResponseFailureException, NseDataParsingException {
+    public Index getIndexQuote(String indexName) throws NoSuchElementException, NseTimeoutException, NseResponseFailureException, NseDataParsingException {
         List<Index> indexList = this.getIndices();
         for(Index i: indexList){
-            if(i.getName().equals(indexCode.toUpperCase())){
+            if(i.getName().equals(indexName.toUpperCase())){
                 return i;
             }
         }
-        throw new NoSuchElementException("invalid indexCode/ fetch or parse error from NSE");
+        throw new NoSuchElementException("invalid indexName or fetch/parse error from NSE");
     }
 }

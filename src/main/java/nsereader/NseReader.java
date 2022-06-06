@@ -25,9 +25,9 @@ public abstract class NseReader {
 
     public abstract List<Index> getIndices() throws NseDataParsingException, NseResponseFailureException, NseTimeoutException;
 
-    public abstract boolean isValidStockCode(String code);
+    public abstract boolean isValidStock(String stockSymbol);
 
-    public abstract boolean isValidIndexCode(String code);
+    public abstract boolean isValidIndex(String indexName);
 
     public abstract List<GainerLoserStats> getTopGainers() throws NseDataParsingException, NseResponseFailureException, NseTimeoutException;
 
@@ -35,7 +35,7 @@ public abstract class NseReader {
 
     public abstract List<AdvanceDeclineStats> getAdvancesDeclines() throws NseDataParsingException, NseResponseFailureException, NseTimeoutException;
 
-    public abstract Index getIndexQuote(String indexCode) throws NoSuchElementException, NseTimeoutException, NseResponseFailureException, NseDataParsingException;
+    public abstract Index getIndexQuote(String indexName) throws NoSuchElementException, NseTimeoutException, NseResponseFailureException, NseDataParsingException;
 
     public interface Builder {
         NseReader build();

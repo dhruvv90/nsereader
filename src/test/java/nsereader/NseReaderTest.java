@@ -37,10 +37,10 @@ class NseReaderTest {
     }
 
     @Test
-    void isValidStockCode() {
-        boolean check = nseReader.isValidStockCode("hdfc");
-        boolean check1 = nseReader.isValidStockCode("abcd");
-        boolean check2 = nseReader.isValidStockCode("hdFC");
+    void isValidStock() {
+        boolean check = nseReader.isValidStock("hdfc");
+        boolean check1 = nseReader.isValidStock("abcd");
+        boolean check2 = nseReader.isValidStock("hdFC");
 
         assertTrue(check);
         assertTrue(check2);
@@ -61,10 +61,10 @@ class NseReaderTest {
     }
 
     @Test
-    void isValidIndexCode() {
-        boolean check = nseReader.isValidIndexCode("abcd");
-        boolean check1 = nseReader.isValidIndexCode("NIFTY 50 Pre Open");
-        boolean check2 = nseReader.isValidIndexCode("NiFtY 50 pre Open");
+    void isValidIndex() {
+        boolean check = nseReader.isValidIndex("abcd");
+        boolean check1 = nseReader.isValidIndex("NIFTY 50 Pre Open");
+        boolean check2 = nseReader.isValidIndex("NiFtY 50 pre Open");
 
         assertTrue(check1);
         assertTrue(check2);
