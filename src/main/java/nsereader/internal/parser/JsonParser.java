@@ -13,14 +13,15 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JsonParser {
+class JsonParser {
 
-    private JsonParser() {
+    private final ObjectMapper mapper;
 
+    JsonParser() {
+        this.mapper = new ObjectMapper();
     }
 
-    public static List<Index> parseAllIndices(InputStream iStream) throws NseDataParsingException {
-        ObjectMapper mapper = new ObjectMapper();
+    List<Index> parseAllIndices(InputStream iStream) throws NseDataParsingException {
         List<Index> indexList = new ArrayList<>();
 
         JsonFactory jsonFactory = new JsonFactory();
@@ -48,8 +49,7 @@ public class JsonParser {
         return indexList;
     }
 
-    private static List<GainerLoserStats> parseTop(InputStream iStream) throws NseDataParsingException {
-        ObjectMapper mapper = new ObjectMapper();
+    List<GainerLoserStats> parseTop(InputStream iStream) throws NseDataParsingException {
         List<GainerLoserStats> stats = new ArrayList<>();
 
         JsonFactory jsonFactory = new JsonFactory();
@@ -77,16 +77,15 @@ public class JsonParser {
         return stats;
     }
 
-    public static List<GainerLoserStats> parseTopGainers(InputStream iStream) throws NseDataParsingException {
+    List<GainerLoserStats> parseTopGainers(InputStream iStream) throws NseDataParsingException {
         return parseTop(iStream);
     }
 
-    public static List<GainerLoserStats> parseTopLosers(InputStream iStream) throws NseDataParsingException {
+    List<GainerLoserStats> parseTopLosers(InputStream iStream) throws NseDataParsingException {
         return parseTop(iStream);
     }
 
-    public static List<AdvanceDeclineStats> parseAdvancesDeclines(InputStream iStream) throws NseDataParsingException {
-        ObjectMapper mapper = new ObjectMapper();
+    List<AdvanceDeclineStats> parseAdvancesDeclines(InputStream iStream) throws NseDataParsingException {
         List<AdvanceDeclineStats> stats = new ArrayList<>();
 
         JsonFactory jsonFactory = new JsonFactory();

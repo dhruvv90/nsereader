@@ -10,13 +10,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CsvParser {
+class CsvParser {
 
-    private CsvParser() {
+    CsvParser() {
 
     }
 
-    public static List<Stock> parseAllStocks(InputStream iStream) throws NseDataParsingException {
+    List<Stock> parseAllStocks(InputStream iStream) throws NseDataParsingException {
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(iStream));
             List<Stock> stockList = new ArrayList<>();
