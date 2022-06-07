@@ -141,7 +141,7 @@ public class OkHttpDataFetcher implements IDataFetcher {
     @Override
     public StockQuote getStockQuote(String stockSymbol) throws NseDataParsingException, NseResponseFailureException, NseTimeoutException {
         Request req = new Request.Builder()
-                .url(HttpUtils.getQuoteUrlForStock(stockSymbol))
+                .url(UrlStore.getQuoteUrlForStock(stockSymbol))
                 .addHeader("Accept", "*/*")
                 .addHeader("User-Agent", "linux")
                 .build();

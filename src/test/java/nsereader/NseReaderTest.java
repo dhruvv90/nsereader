@@ -79,7 +79,6 @@ class NseReaderTest {
     @Test
     void getAdvancesDeclines() throws Exception {
         List<AdvanceDeclineStats> list = nseReader.getAdvancesDeclines();
-        System.out.println(list);
         assertFalse(list.isEmpty());
     }
 

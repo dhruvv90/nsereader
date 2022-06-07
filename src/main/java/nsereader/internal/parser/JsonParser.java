@@ -174,12 +174,19 @@ class NumberDeserializer<T extends Number> extends StdDeserializer<T> {
         fnMap.put(BigInteger.class, BigInteger::new);
     }
 
-    @Override
-    public T deserialize(com.fasterxml.jackson.core.JsonParser p, DeserializationContext ctxt) throws IOException {
+    private T fromString(String s) throws IOException {
         Function<String, ? extends Number> fn = fnMap.get(this.clazz);
         if (fn == null) {
             throw new IOException("No Parser defined for type: " + this.clazz.getName());
         }
+        // Cast Safe due to above null check
+        //noinspection unchecked
+        return (T) fn.apply(s);
+    }
+
+    @Override
+    public T deserialize(com.fasterxml.jackson.core.JsonParser p, DeserializationContext ctxt) throws IOException {
+
         String s = p.getText();
         if (s.equals("-")) {
             return null;
@@ -187,9 +194,7 @@ class NumberDeserializer<T extends Number> extends StdDeserializer<T> {
         if (s.contains(",")) {
             s = s.replace(",", "");
         }
-        // This is done because we ensure that the fnMap returns correct object.
-        //noinspection unchecked
-        return (T) fn.apply(s);
+        return fromString(s);
     }
 }
 
