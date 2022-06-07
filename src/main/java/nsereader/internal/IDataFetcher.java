@@ -1,4 +1,4 @@
-package nsereader.internal.datafetcher;
+package nsereader.internal;
 
 import nsereader.exception.NseDataParsingException;
 import nsereader.exception.NseResponseFailureException;

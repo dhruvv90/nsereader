@@ -1,4 +1,4 @@
-package nsereader.internal.parser;
+package nsereader.internal;
 
 import nsereader.exception.NseDataParsingException;
 import nsereader.model.Stock;

@@ -1,9 +1,8 @@
-package nsereader.internal.datafetcher;
+package nsereader.internal;
 
 import nsereader.exception.NseDataParsingException;
 import nsereader.exception.NseResponseFailureException;
 import nsereader.exception.NseTimeoutException;
-import nsereader.internal.parser.Parser;
 import nsereader.model.*;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -24,7 +23,7 @@ class OkHttpDataFetcher implements IDataFetcher {
         this.parser = new Parser();
     }
 
-    public static OkHttpDataFetcher getInstance() {
+    static OkHttpDataFetcher getInstance() {
         if (instance == null) {
             instance = new OkHttpDataFetcher();
         }

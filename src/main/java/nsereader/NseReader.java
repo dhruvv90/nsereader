@@ -3,7 +3,6 @@ package nsereader;
 import nsereader.exception.NseDataParsingException;
 import nsereader.exception.NseResponseFailureException;
 import nsereader.exception.NseTimeoutException;
-import nsereader.internal.NseReaderBuilderImpl;
 import nsereader.model.*;
 
 import java.util.List;
@@ -38,6 +37,17 @@ public abstract class NseReader {
 
     public interface Builder {
         NseReader build();
+    }
+}
+
+class NseReaderBuilderImpl implements NseReader.Builder {
+
+    public NseReaderBuilderImpl() {
+    }
+
+    @Override
+    public NseReader build() {
+        return new NseReaderImpl(this);
     }
 }
 

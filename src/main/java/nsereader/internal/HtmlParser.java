@@ -1,7 +1,6 @@
-package nsereader.internal.parser;
+package nsereader.internal;
 
 import nsereader.exception.NseDataParsingException;
-import nsereader.internal.datafetcher.UrlStore;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 

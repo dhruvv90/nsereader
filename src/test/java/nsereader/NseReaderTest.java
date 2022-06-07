@@ -1,7 +1,7 @@
 package nsereader;
 
 import nsereader.exception.NseDataParsingException;
-import nsereader.internal.datafetcher.IDataFetcher;
+import nsereader.internal.IDataFetcher;
 import nsereader.model.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

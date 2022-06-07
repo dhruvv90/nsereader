@@ -1,10 +1,9 @@
-package nsereader.internal;
+package nsereader;
 
-import nsereader.NseReader;
 import nsereader.exception.NseDataParsingException;
 import nsereader.exception.NseResponseFailureException;
 import nsereader.exception.NseTimeoutException;
-import nsereader.internal.datafetcher.IDataFetcher;
+import nsereader.internal.IDataFetcher;
 import nsereader.model.*;
 
 import java.util.HashMap;
