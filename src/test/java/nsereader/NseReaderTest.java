@@ -1,10 +1,8 @@
 package nsereader;
 
+import nsereader.exception.NseDataParsingException;
 import nsereader.internal.datafetcher.IDataFetcher;
-import nsereader.model.AdvanceDeclineStats;
-import nsereader.model.GainerLoserStats;
-import nsereader.model.Index;
-import nsereader.model.Stock;
+import nsereader.model.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -89,7 +87,13 @@ class NseReaderTest {
     void getIndexQuote() throws Exception {
         Index quote = nseReader.getIndexQuote("nifty 50");
         assertNotNull(quote);
-
         assertThrows(NoSuchElementException.class, () -> nseReader.getIndexQuote("nifty 501"));
+    }
+
+    @Test
+    void getStockQuote() throws Exception {
+        StockQuote quote = nseReader.getStockQuote("hdfc");
+        assertNotNull(quote);
+        assertThrows(NseDataParsingException.class, () -> nseReader.getStockQuote("abcd"));
     }
 }

@@ -3,10 +3,7 @@ package nsereader.internal.datafetcher;
 import nsereader.exception.NseDataParsingException;
 import nsereader.exception.NseResponseFailureException;
 import nsereader.exception.NseTimeoutException;
-import nsereader.model.AdvanceDeclineStats;
-import nsereader.model.GainerLoserStats;
-import nsereader.model.Index;
-import nsereader.model.Stock;
+import nsereader.model.*;
 
 import java.util.List;
 
@@ -25,5 +22,7 @@ public interface IDataFetcher {
     List<GainerLoserStats> getTopLosers() throws NseDataParsingException, NseResponseFailureException, NseTimeoutException;
 
     List<AdvanceDeclineStats> getAdvancesDeclines() throws NseDataParsingException, NseResponseFailureException, NseTimeoutException;
+
+    StockQuote getStockQuote(String stockSymbol) throws NseDataParsingException, NseResponseFailureException, NseTimeoutException;
 }
 

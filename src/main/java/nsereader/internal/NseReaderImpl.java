@@ -5,10 +5,7 @@ import nsereader.exception.NseDataParsingException;
 import nsereader.exception.NseResponseFailureException;
 import nsereader.exception.NseTimeoutException;
 import nsereader.internal.datafetcher.IDataFetcher;
-import nsereader.model.AdvanceDeclineStats;
-import nsereader.model.GainerLoserStats;
-import nsereader.model.Index;
-import nsereader.model.Stock;
+import nsereader.model.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -35,6 +32,15 @@ class NseReaderImpl extends NseReader {
             this.stocksMap.put(s.getSymbol(), s);
         }
         return stockList;
+    }
+
+    @Override
+    public StockQuote getStockQuote(String stockSymbol) throws NoSuchElementException, NseDataParsingException, NseResponseFailureException, NseTimeoutException {
+        if (!this.stocksMap.isEmpty() && !this.stocksMap.containsKey(stockSymbol.toUpperCase())) {
+            throw new NseDataParsingException("Invalid stockSymbol");
+
+        }
+        return this.dataFetcher.getStockQuote(stockSymbol);
     }
 
     @Override

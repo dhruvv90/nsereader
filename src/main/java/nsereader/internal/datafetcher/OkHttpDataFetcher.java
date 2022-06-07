@@ -4,10 +4,7 @@ import nsereader.exception.NseDataParsingException;
 import nsereader.exception.NseResponseFailureException;
 import nsereader.exception.NseTimeoutException;
 import nsereader.internal.parser.Parser;
-import nsereader.model.AdvanceDeclineStats;
-import nsereader.model.GainerLoserStats;
-import nsereader.model.Index;
-import nsereader.model.Stock;
+import nsereader.model.*;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -139,5 +136,28 @@ public class OkHttpDataFetcher implements IDataFetcher {
             throw new NseTimeoutException(e);
         }
         return stats;
+    }
+
+    @Override
+    public StockQuote getStockQuote(String stockSymbol) throws NseDataParsingException, NseResponseFailureException, NseTimeoutException {
+        Request req = new Request.Builder()
+                .url(HttpUtils.getQuoteUrlForStock(stockSymbol))
+                .addHeader("Accept", "*/*")
+                .addHeader("User-Agent", "linux")
+                .build();
+
+        StockQuote quote;
+
+        try(Response res = httpClient.newCall(req).execute()){
+            if (res.code() != HttpUtils.HTTP_CODE_OK || res.body() == null) {
+                throw new NseResponseFailureException();
+            }
+            InputStream iStream = res.body().byteStream();
+            quote = this.parser.parseStockQuote(iStream);
+        }
+        catch(IOException e){
+            throw new NseTimeoutException(e);
+        }
+        return quote;
     }
 }

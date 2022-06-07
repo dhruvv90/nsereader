@@ -4,10 +4,7 @@ import nsereader.exception.NseDataParsingException;
 import nsereader.exception.NseResponseFailureException;
 import nsereader.exception.NseTimeoutException;
 import nsereader.internal.NseReaderBuilderImpl;
-import nsereader.model.AdvanceDeclineStats;
-import nsereader.model.GainerLoserStats;
-import nsereader.model.Index;
-import nsereader.model.Stock;
+import nsereader.model.*;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -20,6 +17,8 @@ public abstract class NseReader {
     public static Builder getBuilder() {
         return new NseReaderBuilderImpl();
     }
+
+    public abstract StockQuote getStockQuote(String stockSymbol) throws NoSuchElementException, NseDataParsingException, NseResponseFailureException, NseTimeoutException;
 
     public abstract List<Stock> getStocks() throws NseDataParsingException, NseResponseFailureException, NseTimeoutException;
 
