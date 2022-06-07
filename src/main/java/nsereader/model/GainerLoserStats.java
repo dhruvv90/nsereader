@@ -1,39 +1,30 @@
 package nsereader.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import nsereader.internal.deserializer.DoubleCommaDeserializer;
-import nsereader.internal.deserializer.IntegerCommaDeserializer;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Date;
 
 public class GainerLoserStats {
     private String symbol;
     private String series;
 
-    @JsonDeserialize(using = DoubleCommaDeserializer.class)
-    private Double openPrice;
+    private BigDecimal openPrice;
 
-    @JsonDeserialize(using = DoubleCommaDeserializer.class)
-    private Double highPrice;
+    private BigDecimal highPrice;
 
-    @JsonDeserialize(using = DoubleCommaDeserializer.class)
-    private Double lowPrice;
+    private BigDecimal lowPrice;
 
-    @JsonDeserialize(using = DoubleCommaDeserializer.class)
-    private Double ltp;
+    private BigDecimal ltp;
 
-    @JsonDeserialize(using = DoubleCommaDeserializer.class)
-    private Double previousPrice;
+    private BigDecimal previousPrice;
 
-    @JsonDeserialize(using = DoubleCommaDeserializer.class)
-    private Double netPrice;
+    private BigDecimal netPrice;
 
-    @JsonDeserialize(using = IntegerCommaDeserializer.class)
-    private Integer tradedQuantity;
+    private BigInteger tradedQuantity;
 
-    @JsonDeserialize(using = DoubleCommaDeserializer.class)
-    private Double turnoverInLakhs;
+    private BigDecimal turnoverInLakhs;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="dd-MMM-yyyy")
     private Date lastCorpAnnouncementDate;
@@ -60,67 +51,67 @@ public class GainerLoserStats {
         this.series = series;
     }
 
-    public Double getOpenPrice() {
+    public BigDecimal getOpenPrice() {
         return openPrice;
     }
 
-    public void setOpenPrice(Double openPrice) {
+    public void setOpenPrice(BigDecimal openPrice) {
         this.openPrice = openPrice;
     }
 
-    public Double getHighPrice() {
+    public BigDecimal getHighPrice() {
         return highPrice;
     }
 
-    public void setHighPrice(Double highPrice) {
+    public void setHighPrice(BigDecimal highPrice) {
         this.highPrice = highPrice;
     }
 
-    public Double getLowPrice() {
+    public BigDecimal getLowPrice() {
         return lowPrice;
     }
 
-    public void setLowPrice(Double lowPrice) {
+    public void setLowPrice(BigDecimal lowPrice) {
         this.lowPrice = lowPrice;
     }
 
-    public Double getLtp() {
+    public BigDecimal getLtp() {
         return ltp;
     }
 
-    public void setLtp(Double ltp) {
+    public void setLtp(BigDecimal ltp) {
         this.ltp = ltp;
     }
 
-    public Double getPreviousPrice() {
+    public BigDecimal getPreviousPrice() {
         return previousPrice;
     }
 
-    public void setPreviousPrice(Double previousPrice) {
+    public void setPreviousPrice(BigDecimal previousPrice) {
         this.previousPrice = previousPrice;
     }
 
-    public Double getNetPrice() {
+    public BigDecimal getNetPrice() {
         return netPrice;
     }
 
-    public void setNetPrice(Double netPrice) {
+    public void setNetPrice(BigDecimal netPrice) {
         this.netPrice = netPrice;
     }
 
-    public Integer getTradedQuantity() {
+    public BigInteger getTradedQuantity() {
         return tradedQuantity;
     }
 
-    public void setTradedQuantity(Integer tradedQuantity) {
+    public void setTradedQuantity(BigInteger tradedQuantity) {
         this.tradedQuantity = tradedQuantity;
     }
 
-    public Double getTurnoverInLakhs() {
+    public BigDecimal getTurnoverInLakhs() {
         return turnoverInLakhs;
     }
 
-    public void setTurnoverInLakhs(Double turnoverInLakhs) {
+    public void setTurnoverInLakhs(BigDecimal turnoverInLakhs) {
         this.turnoverInLakhs = turnoverInLakhs;
     }
 

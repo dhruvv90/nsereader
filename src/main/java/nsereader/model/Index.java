@@ -1,20 +1,16 @@
 package nsereader.model;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import nsereader.internal.deserializer.DoubleCommaDeserializer;
+import java.math.BigDecimal;
 
 public class Index {
 
     private String name;
 
-    @JsonDeserialize(using = DoubleCommaDeserializer.class)
-    private Double lastPrice;
+    private BigDecimal lastPrice;
 
-    @JsonDeserialize(using = DoubleCommaDeserializer.class)
-    private Double change;
+    private BigDecimal change;
 
-    @JsonDeserialize(using = DoubleCommaDeserializer.class)
-    private Double pChange;
+    private BigDecimal pChange;
 
     private String imgFileName;
 
@@ -29,27 +25,27 @@ public class Index {
         this.name = name.toUpperCase();
     }
 
-    public Double getLastPrice() {
+    public BigDecimal getLastPrice() {
         return lastPrice;
     }
 
-    public void setLastPrice(Double lastPrice) {
+    public void setLastPrice(BigDecimal lastPrice) {
         this.lastPrice = lastPrice;
     }
 
-    public Double getChange() {
+    public BigDecimal getChange() {
         return change;
     }
 
-    public void setChange(Double change) {
+    public void setChange(BigDecimal change) {
         this.change = change;
     }
 
-    public Double getpChange() {
+    public BigDecimal getpChange() {
         return pChange;
     }
 
-    public void setpChange(Double pChange) {
+    public void setpChange(BigDecimal pChange) {
         this.pChange = pChange;
     }
 

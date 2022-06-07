@@ -6,17 +6,18 @@ import nsereader.model.Stock;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CsvParser {
+class CsvParser {
 
-    private CsvParser() {
+    CsvParser() {
 
     }
 
-    public static List<Stock> parseAllStocks(InputStream iStream) throws NseDataParsingException {
+    List<Stock> parseAllStocks(InputStream iStream) throws NseDataParsingException {
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(iStream));
             List<Stock> stockList = new ArrayList<>();
@@ -43,11 +44,11 @@ public class CsvParser {
                 stock.setNameOfCompany(fragments[i++]);
                 stock.setSeries(fragments[i++]);
                 stock.setDateOfListing(new SimpleDateFormat("dd-MMM-yyyy").parse(fragments[i++]));
-                stock.setPaidUpValue(Double.parseDouble(fragments[i++]));
-                stock.setMarketLot(Short.parseShort(fragments[i++]));
+                stock.setPaidUpValue(new BigDecimal(fragments[i++]));
+                stock.setMarketLot(Integer.parseInt(fragments[i++]));
                 stock.setIsinNumber(fragments[i++]);
                 //noinspection UnusedAssignment
-                stock.setFaceValue(Short.parseShort(fragments[i++]));
+                stock.setFaceValue(Integer.parseInt(fragments[i++]));
 
                 stockList.add(stock);
             }
