@@ -62,11 +62,11 @@ class JsonParser {
                         Index idx = mapper.readValue(parser, Index.class);
                         indexList.add(idx);
                     }
-                    if (indexList.isEmpty()) {
-                        throw new NseDataParsingException("Empty data from NSE");
-                    }
                     break;
                 }
+            }
+            if (indexList.isEmpty()) {
+                throw new NseDataParsingException("Empty data from NSE");
             }
         } catch (IOException e) {
             throw new NseDataParsingException(e);
@@ -90,11 +90,11 @@ class JsonParser {
                         GainerLoserStats stat = mapper.readValue(parser, GainerLoserStats.class);
                         stats.add(stat);
                     }
-                    if (stats.isEmpty()) {
-                        throw new NseDataParsingException("Empty data from NSE");
-                    }
                     break;
                 }
+            }
+            if (stats.isEmpty()) {
+                throw new NseDataParsingException("Empty data from NSE");
             }
         } catch (IOException e) {
             throw new NseDataParsingException(e);
@@ -121,16 +121,15 @@ class JsonParser {
                     if (parser.nextToken() != JsonToken.START_ARRAY) {
                         throw new NseDataParsingException();
                     }
-
                     while (parser.nextToken() != JsonToken.END_ARRAY) {
                         AdvanceDeclineStats stat = mapper.readValue(parser, AdvanceDeclineStats.class);
                         stats.add(stat);
                     }
-                    if (stats.isEmpty()) {
-                        throw new NseDataParsingException("Empty data from NSE");
-                    }
                     break;
                 }
+            }
+            if (stats.isEmpty()) {
+                throw new NseDataParsingException("Empty data from NSE");
             }
         } catch (IOException e) {
             throw new NseDataParsingException(e);

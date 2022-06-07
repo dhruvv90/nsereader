@@ -14,7 +14,7 @@ import java.io.InputStream;
 import java.util.List;
 
 
-public class OkHttpDataFetcher implements IDataFetcher {
+class OkHttpDataFetcher implements IDataFetcher {
     private static OkHttpDataFetcher instance;
     private final OkHttpClient httpClient;
     private final Parser parser;
