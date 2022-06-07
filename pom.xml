@@ -34,16 +34,17 @@
                         <Export-Package>
                             nsereader.exception,
                             nsereader.model,
-                            nsereader
+                            nsereader,
+                            nsereader.internal,
+                            nsereader.internal.datafetcher,
+                            nsereader.internal.parser
                         </Export-Package>
                         <Private-Package>
-                            nsereader.internal
                         </Private-Package>
                     </instructions>
                 </configuration>
 
             </plugin>
-
         </plugins>
     </build>
 
