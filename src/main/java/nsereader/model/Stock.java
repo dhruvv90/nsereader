@@ -1,5 +1,6 @@
 package nsereader.model;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class Stock {
@@ -8,10 +9,10 @@ public class Stock {
     private String nameOfCompany;
     private String series;
     private Date dateOfListing;
-    private Double paidUpValue;
-    private Short marketLot;
+    private BigDecimal paidUpValue;
+    private Integer marketLot;
     private String isinNumber;
-    private Short faceValue;
+    private Integer faceValue;
 
     public Stock() {
     }
@@ -48,19 +49,19 @@ public class Stock {
         this.dateOfListing = dateOfListing;
     }
 
-    public Double getPaidUpValue() {
+    public BigDecimal getPaidUpValue() {
         return paidUpValue;
     }
 
-    public void setPaidUpValue(Double paidUpValue) {
+    public void setPaidUpValue(BigDecimal paidUpValue) {
         this.paidUpValue = paidUpValue;
     }
 
-    public Short getMarketLot() {
+    public Integer getMarketLot() {
         return marketLot;
     }
 
-    public void setMarketLot(Short marketLot) {
+    public void setMarketLot(Integer marketLot) {
         this.marketLot = marketLot;
     }
 
@@ -72,11 +73,11 @@ public class Stock {
         this.isinNumber = isinNumber;
     }
 
-    public Short getFaceValue() {
+    public Integer getFaceValue() {
         return faceValue;
     }
 
-    public void setFaceValue(Short faceValue) {
+    public void setFaceValue(Integer faceValue) {
         this.faceValue = faceValue;
     }
 

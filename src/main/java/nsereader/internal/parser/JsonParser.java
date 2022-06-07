@@ -2,7 +2,10 @@ package nsereader.internal.parser;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonToken;
+import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import nsereader.exception.NseDataParsingException;
 import nsereader.model.AdvanceDeclineStats;
 import nsereader.model.GainerLoserStats;
@@ -10,8 +13,12 @@ import nsereader.model.Index;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.function.Function;
 
 class JsonParser {
 
@@ -19,6 +26,18 @@ class JsonParser {
 
     JsonParser() {
         this.mapper = new ObjectMapper();
+
+        SimpleModule module = new SimpleModule();
+        module.addDeserializer(Long.class, new NumberDeserializer<>(Long.class));
+        module.addDeserializer(Integer.class, new NumberDeserializer<>(Integer.class));
+        module.addDeserializer(Double.class, new NumberDeserializer<>(Double.class));
+        module.addDeserializer(Float.class, new NumberDeserializer<>(Float.class));
+        module.addDeserializer(Short.class, new NumberDeserializer<>(Short.class));
+        module.addDeserializer(BigDecimal.class, new NumberDeserializer<>(BigDecimal.class));
+        module.addDeserializer(BigInteger.class, new NumberDeserializer<>(BigInteger.class));
+        module.addDeserializer(String.class, new StringDeserializer(String.class));
+
+        mapper.registerModule(module);
     }
 
     List<Index> parseAllIndices(InputStream iStream) throws NseDataParsingException {
@@ -114,3 +133,57 @@ class JsonParser {
     }
 }
 
+class NumberDeserializer<T extends Number> extends StdDeserializer<T> {
+
+    private final HashMap<Class<? extends Number>, Function<String, ? extends Number>> fnMap;
+    private final Class<? extends Number> clazz;
+
+    NumberDeserializer(Class<? extends Number> x) {
+        super(x);
+        this.clazz = x; // Needed for Runtime information
+        this.fnMap = new HashMap<>();
+
+        fnMap.put(Long.class, Long::valueOf);
+        fnMap.put(Integer.class, Integer::valueOf);
+        fnMap.put(Double.class, Double::valueOf);
+        fnMap.put(Float.class, Float::valueOf);
+        fnMap.put(Short.class, Short::valueOf);
+        fnMap.put(BigDecimal.class, BigDecimal::new);
+        fnMap.put(BigInteger.class, BigInteger::new);
+    }
+
+    @Override
+    public T deserialize(com.fasterxml.jackson.core.JsonParser p, DeserializationContext ctxt) throws IOException {
+        Function<String, ? extends Number> fn = fnMap.get(this.clazz);
+        if (fn == null) {
+            throw new IOException("No Parser defined for type: " + this.clazz.getName());
+        }
+        String s = p.getText();
+        if (s.equals("-")) {
+            return null;
+        }
+        if (s.contains(",")) {
+            s = s.replace(",", "");
+        }
+        // This is done because we ensure that the fnMap returns correct object.
+        //noinspection unchecked
+        return (T) fn.apply(s);
+    }
+}
+
+
+class StringDeserializer extends StdDeserializer<String> {
+
+    protected StringDeserializer(Class<?> vc) {
+        super(vc);
+    }
+
+    @Override
+    public String deserialize(com.fasterxml.jackson.core.JsonParser p, DeserializationContext ctxt) throws IOException {
+        String s = p.getText();
+        if (s.equals("-")) {
+            return null;
+        }
+        return s;
+    }
+}
