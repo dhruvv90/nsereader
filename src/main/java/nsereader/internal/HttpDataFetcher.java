@@ -13,19 +13,19 @@ import java.io.InputStream;
 import java.util.List;
 
 
-class OkHttpDataFetcher implements IDataFetcher {
-    private static OkHttpDataFetcher instance;
+class HttpDataFetcher implements IDataFetcher {
+    private static HttpDataFetcher instance;
     private final OkHttpClient httpClient;
     private final Parser parser;
 
-    private OkHttpDataFetcher() {
+    private HttpDataFetcher() {
         this.httpClient = new OkHttpClient.Builder().build();
         this.parser = new Parser();
     }
 
-    static OkHttpDataFetcher getInstance() {
+    static HttpDataFetcher getInstance() {
         if (instance == null) {
-            instance = new OkHttpDataFetcher();
+            instance = new HttpDataFetcher();
         }
         return instance;
     }
