@@ -5,8 +5,10 @@ import nsereader.exception.NseResponseFailureException;
 import nsereader.exception.NseTimeoutException;
 import nsereader.model.*;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 public abstract class NseReader {
     public static NseReader createDefault() {
@@ -36,19 +38,21 @@ public abstract class NseReader {
     public abstract Index getIndexQuote(String indexName) throws NoSuchElementException, NseTimeoutException, NseResponseFailureException, NseDataParsingException;
 
     public static class NseReaderBuilder {
-        long timeoutInSeconds;
+        Duration timeout;
         String userAgent;
 
         private NseReaderBuilder() {
         }
 
         public NseReaderBuilder setRequestUserAgent(String userAgent) {
+            Objects.requireNonNull(userAgent);
             this.userAgent = userAgent;
             return this;
         }
 
-        public NseReaderBuilder setRequestTimeout(long timeoutInSeconds) {
-            this.timeoutInSeconds = timeoutInSeconds;
+        public NseReaderBuilder setRequestTimeout(Duration timeout) {
+            Objects.requireNonNull(timeout);
+            this.timeout = timeout;
             return this;
         }
 
