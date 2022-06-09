@@ -18,7 +18,7 @@ class NseReaderImpl extends NseReader {
     private final Map<String, Index> indexMap;
 
 
-    NseReaderImpl(NseReaderBuilderImpl builder) {
+    NseReaderImpl(NseReaderBuilder builder) {
         this.dataFetcher = IDataFetcher.getCurrentInstance();
         this.stocksMap = new HashMap<>();
         this.indexMap = new HashMap<>();

@@ -13,8 +13,8 @@ public abstract class NseReader {
         return getBuilder().build();
     }
 
-    public static Builder getBuilder() {
-        return new NseReaderBuilderImpl();
+    public static NseReaderBuilder getBuilder() {
+        return new NseReaderBuilder();
     }
 
     public abstract StockQuote getStockQuote(String stockSymbol) throws NoSuchElementException, NseDataParsingException, NseResponseFailureException, NseTimeoutException;
@@ -35,20 +35,26 @@ public abstract class NseReader {
 
     public abstract Index getIndexQuote(String indexName) throws NoSuchElementException, NseTimeoutException, NseResponseFailureException, NseDataParsingException;
 
-    public interface Builder {
-        NseReader build();
+    static class NseReaderBuilder {
+        long timeoutInSeconds;
+        String userAgent;
+
+        private NseReaderBuilder() {
+        }
+
+        NseReaderBuilder setRequestUserAgent(String userAgent) {
+            this.userAgent = userAgent;
+            return this;
+        }
+
+        NseReaderBuilder setRequestTimeout(long timeoutInSeconds) {
+            this.timeoutInSeconds = timeoutInSeconds;
+            return this;
+        }
+
+        public NseReader build() {
+            return new NseReaderImpl(this);
+        }
     }
 }
-
-class NseReaderBuilderImpl implements NseReader.Builder {
-
-    public NseReaderBuilderImpl() {
-    }
-
-    @Override
-    public NseReader build() {
-        return new NseReaderImpl(this);
-    }
-}
-
 
