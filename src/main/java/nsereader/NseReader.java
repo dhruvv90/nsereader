@@ -35,19 +35,19 @@ public abstract class NseReader {
 
     public abstract Index getIndexQuote(String indexName) throws NoSuchElementException, NseTimeoutException, NseResponseFailureException, NseDataParsingException;
 
-    static class NseReaderBuilder {
+    public static class NseReaderBuilder {
         long timeoutInSeconds;
         String userAgent;
 
         private NseReaderBuilder() {
         }
 
-        NseReaderBuilder setRequestUserAgent(String userAgent) {
+        public NseReaderBuilder setRequestUserAgent(String userAgent) {
             this.userAgent = userAgent;
             return this;
         }
 
-        NseReaderBuilder setRequestTimeout(long timeoutInSeconds) {
+        public NseReaderBuilder setRequestTimeout(long timeoutInSeconds) {
             this.timeoutInSeconds = timeoutInSeconds;
             return this;
         }
