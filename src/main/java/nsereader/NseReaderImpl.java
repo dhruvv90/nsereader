@@ -112,7 +112,7 @@ class NseReaderImpl extends NseReader {
         String url = UrlStore.TOP_LOSER_STOCKS;
         List<GainerLoserStats> stats;
         try (CloseableHttpResponse response = this.httpStreamer.get(url)) {
-            stats = this.parser.parseTopGainers(response.getStream());
+            stats = this.parser.parseTopLosers(response.getStream());
         }
         return stats;
     }
