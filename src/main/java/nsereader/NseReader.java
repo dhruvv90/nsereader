@@ -1,13 +1,12 @@
 package nsereader;
 
-import nsereader.exception.NseDataParsingException;
+import nsereader.exception.NseConnectionException;
+import nsereader.exception.NseDataException;
 import nsereader.exception.NseResponseFailureException;
-import nsereader.exception.NseTimeoutException;
 import nsereader.model.*;
 
 import java.time.Duration;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Objects;
 
 public abstract class NseReader {
@@ -19,23 +18,23 @@ public abstract class NseReader {
         return new NseReaderBuilder();
     }
 
-    public abstract StockQuote getStockQuote(String stockSymbol) throws NoSuchElementException, NseDataParsingException, NseResponseFailureException, NseTimeoutException;
+    public abstract StockQuote getStockQuote(String stockSymbol) throws NseDataException, NseResponseFailureException, NseConnectionException;
 
-    public abstract List<Stock> getStocks() throws NseDataParsingException, NseResponseFailureException, NseTimeoutException;
+    public abstract List<Stock> getStocks() throws NseDataException, NseResponseFailureException, NseConnectionException;
 
-    public abstract boolean isValidStock(String stockSymbol) throws NseTimeoutException, NseDataParsingException, NseResponseFailureException;
+    public abstract boolean isValidStock(String stockSymbol) throws NseConnectionException, NseDataException, NseResponseFailureException;
 
-    public abstract List<Index> getIndices() throws NseDataParsingException, NseResponseFailureException, NseTimeoutException;
+    public abstract List<Index> getIndices() throws NseDataException, NseResponseFailureException, NseConnectionException;
 
-    public abstract boolean isValidIndex(String indexName) throws NseTimeoutException, NseDataParsingException, NseResponseFailureException;
+    public abstract boolean isValidIndex(String indexName) throws NseConnectionException, NseDataException, NseResponseFailureException;
 
-    public abstract List<GainerLoserStats> getTopGainers() throws NseDataParsingException, NseResponseFailureException, NseTimeoutException;
+    public abstract List<GainerLoserStats> getTopGainers() throws NseDataException, NseResponseFailureException, NseConnectionException;
 
-    public abstract List<GainerLoserStats> getTopLosers() throws NseDataParsingException, NseResponseFailureException, NseTimeoutException;
+    public abstract List<GainerLoserStats> getTopLosers() throws NseDataException, NseResponseFailureException, NseConnectionException;
 
-    public abstract List<AdvanceDeclineStats> getAdvancesDeclines() throws NseDataParsingException, NseResponseFailureException, NseTimeoutException;
+    public abstract List<AdvanceDeclineStats> getAdvancesDeclines() throws NseDataException, NseResponseFailureException, NseConnectionException;
 
-    public abstract Index getIndexQuote(String indexName) throws NoSuchElementException, NseTimeoutException, NseResponseFailureException, NseDataParsingException;
+    public abstract Index getIndexQuote(String indexName) throws NseConnectionException, NseResponseFailureException, NseDataException;
 
     public static class NseReaderBuilder {
         Duration timeout;

@@ -1,13 +1,11 @@
 package nsereader;
 
-import nsereader.exception.NseDataParsingException;
-import nsereader.internal.IDataFetcher;
+import nsereader.exception.NseDataException;
 import nsereader.model.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -55,15 +53,6 @@ class NseReaderTest {
         assertFalse(check);
     }
 
-
-    @Test
-    void IDataFetcher_Build() {
-        IDataFetcher first = IDataFetcher.getCurrentInstance();
-        IDataFetcher second = IDataFetcher.getCurrentInstance();
-        assertEquals(first, second);
-        assertSame(first, second);
-    }
-
     @Test
     void getTopGainers() throws Exception {
         List<GainerLoserStats> list = nseReader.getTopGainers();
@@ -86,13 +75,13 @@ class NseReaderTest {
     void getIndexQuote() throws Exception {
         Index quote = nseReader.getIndexQuote("nifty 50");
         assertNotNull(quote);
-        assertThrows(NoSuchElementException.class, () -> nseReader.getIndexQuote("nifty 501"));
+        assertThrows(NseDataException.class, () -> nseReader.getIndexQuote("nifty 501"));
     }
 
     @Test
     void getStockQuote() throws Exception {
         StockQuote quote = nseReader.getStockQuote("hdfc");
         assertNotNull(quote);
-        assertThrows(NseDataParsingException.class, () -> nseReader.getStockQuote("abcd"));
+        assertThrows(NseDataException.class, () -> nseReader.getStockQuote("abcd"));
     }
 }

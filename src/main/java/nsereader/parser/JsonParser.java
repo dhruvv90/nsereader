@@ -1,4 +1,4 @@
-package nsereader.internal;
+package nsereader.parser;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonToken;
@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import nsereader.exception.NseDataParsingException;
+import nsereader.exception.NseDataException;
 import nsereader.model.AdvanceDeclineStats;
 import nsereader.model.GainerLoserStats;
 import nsereader.model.Index;
@@ -46,7 +46,7 @@ class JsonParser {
         mapper.registerModule(module);
     }
 
-    List<Index> parseAllIndices(InputStream iStream) throws NseDataParsingException {
+    List<Index> parseAllIndices(InputStream iStream) throws NseDataException {
         List<Index> indexList = new ArrayList<>();
 
         JsonFactory jsonFactory = new JsonFactory();
@@ -55,7 +55,7 @@ class JsonParser {
                 JsonToken token = parser.nextToken();
                 if (JsonToken.FIELD_NAME.equals(token) && parser.getCurrentName().equals("data")) {
                     if (parser.nextToken() != JsonToken.START_ARRAY) {
-                        throw new NseDataParsingException();
+                        throw new NseDataException();
                     }
 
                     while (parser.nextToken() != JsonToken.END_ARRAY) {
@@ -66,15 +66,15 @@ class JsonParser {
                 }
             }
             if (indexList.isEmpty()) {
-                throw new NseDataParsingException("Empty data from NSE");
+                throw new NseDataException("Empty data from NSE");
             }
         } catch (IOException e) {
-            throw new NseDataParsingException(e);
+            throw new NseDataException(e);
         }
         return indexList;
     }
 
-    List<GainerLoserStats> parseTop(InputStream iStream) throws NseDataParsingException {
+    List<GainerLoserStats> parseTop(InputStream iStream) throws NseDataException {
         List<GainerLoserStats> stats = new ArrayList<>();
 
         JsonFactory jsonFactory = new JsonFactory();
@@ -83,7 +83,7 @@ class JsonParser {
                 JsonToken token = parser.nextToken();
                 if (JsonToken.FIELD_NAME.equals(token) && parser.getCurrentName().equals("data")) {
                     if (parser.nextToken() != JsonToken.START_ARRAY) {
-                        throw new NseDataParsingException();
+                        throw new NseDataException();
                     }
 
                     while (parser.nextToken() != JsonToken.END_ARRAY) {
@@ -94,23 +94,23 @@ class JsonParser {
                 }
             }
             if (stats.isEmpty()) {
-                throw new NseDataParsingException("Empty data from NSE");
+                throw new NseDataException("Empty data from NSE");
             }
         } catch (IOException e) {
-            throw new NseDataParsingException(e);
+            throw new NseDataException(e);
         }
         return stats;
     }
 
-    List<GainerLoserStats> parseTopGainers(InputStream iStream) throws NseDataParsingException {
+    List<GainerLoserStats> parseTopGainers(InputStream iStream) throws NseDataException {
         return parseTop(iStream);
     }
 
-    List<GainerLoserStats> parseTopLosers(InputStream iStream) throws NseDataParsingException {
+    List<GainerLoserStats> parseTopLosers(InputStream iStream) throws NseDataException {
         return parseTop(iStream);
     }
 
-    List<AdvanceDeclineStats> parseAdvancesDeclines(InputStream iStream) throws NseDataParsingException {
+    List<AdvanceDeclineStats> parseAdvancesDeclines(InputStream iStream) throws NseDataException {
         List<AdvanceDeclineStats> stats = new ArrayList<>();
 
         JsonFactory jsonFactory = new JsonFactory();
@@ -119,7 +119,7 @@ class JsonParser {
                 JsonToken token = parser.nextToken();
                 if (JsonToken.FIELD_NAME.equals(token) && parser.getCurrentName().equals("data")) {
                     if (parser.nextToken() != JsonToken.START_ARRAY) {
-                        throw new NseDataParsingException();
+                        throw new NseDataException();
                     }
                     while (parser.nextToken() != JsonToken.END_ARRAY) {
                         AdvanceDeclineStats stat = mapper.readValue(parser, AdvanceDeclineStats.class);
@@ -129,25 +129,25 @@ class JsonParser {
                 }
             }
             if (stats.isEmpty()) {
-                throw new NseDataParsingException("Empty data from NSE");
+                throw new NseDataException("Empty data from NSE");
             }
         } catch (IOException e) {
-            throw new NseDataParsingException(e);
+            throw new NseDataException(e);
         }
         return stats;
     }
 
-    StockQuote parseStockQuote(String responseBlock) throws NseDataParsingException {
+    StockQuote parseStockQuote(String responseBlock) throws NseDataException {
         StockQuote quote;
         {
             try {
                 JsonNode node = mapper.readTree(responseBlock).get("data").get(0);
                 quote = mapper.treeToValue(node, StockQuote.class);
                 if (quote == null) {
-                    throw new NseDataParsingException("Received Empty Quote data from NSE");
+                    throw new NseDataException("Received Empty Quote data from NSE");
                 }
             } catch (IOException e) {
-                throw new NseDataParsingException(e);
+                throw new NseDataException(e);
             }
         }
         return quote;

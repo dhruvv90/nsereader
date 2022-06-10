@@ -1,6 +1,6 @@
-package nsereader.internal;
+package nsereader.parser;
 
-import nsereader.exception.NseDataParsingException;
+import nsereader.exception.NseDataException;
 import nsereader.model.Stock;
 
 import java.io.BufferedReader;
@@ -17,7 +17,7 @@ class CsvParser {
 
     }
 
-    List<Stock> parseAllStocks(InputStream iStream) throws NseDataParsingException {
+    List<Stock> parseAllStocks(InputStream iStream) throws NseDataException {
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(iStream));
             List<Stock> stockList = new ArrayList<>();
@@ -29,7 +29,7 @@ class CsvParser {
                 }
                 String[] fragments = row.split(",");
                 if (fragments.length == 0) {
-                    throw new NseDataParsingException("No Data in Stocks CSV");
+                    throw new NseDataException("No Data in Stocks CSV");
                 }
 
                 // Ignore first row
@@ -53,12 +53,12 @@ class CsvParser {
                 stockList.add(stock);
             }
             if (stockList.isEmpty()) {
-                throw new NseDataParsingException("StocksCsv: Empty Response");
+                throw new NseDataException("StocksCsv: Empty Response");
             }
             return stockList;
 
         } catch (Exception e) {
-            throw new NseDataParsingException(e);
+            throw new NseDataException(e);
         }
     }
 
