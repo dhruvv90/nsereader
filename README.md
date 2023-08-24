@@ -1,2 +1,3 @@
-# nsereader [WIP]
-A Java Library for extracting realtime data from NSE
+# nsereader
+A light-weight Java Library for extracting real-time data from NSE
+** Only for educational purposes
